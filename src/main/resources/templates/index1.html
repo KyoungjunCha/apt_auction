@@ -1,0 +1,142 @@
+<html layout:decorate="~{layout}">
+<!-- content -->
+<div layout:fragment="content" class="container video-background"> <!--뒤에 video-background 빼면 header footer 안나옴-->
+    <video autoplay muted loop class="video">
+        <source src="as2.mp4" type="video/mp4"> <!--배경화면-->
+    </video>
+
+
+    <div class="m-auto content-box main-index index1">
+        <div class="main-info">
+            <!-- 크게 왼쪽부터 -->
+            <p>실 거주자를 위한 내 집 마련 첫 걸음</p>
+            <p>낙찰가를 예측하여 부동산 경매에 도움을 드립니다.</p>
+        </div>
+
+        <form th:action="@{/auction/list/custom-filters}" method="post" class="index1-form m-auto">
+            <div id="input-info">
+                <table class="m-auto styled-table1">
+                    <tr>
+                        <th id="th1">*본인의 입찰 다능한 금액을 입력해주세요.</th>
+                        <th id="th2">*지역과 평수를 선택해 주세요.</th>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="price" id="quantity" min="0" max="10000000000"
+                                placeholder="원하시는 금액을 적어주세요.">원</td>
+                        <td>
+                            <select id="locationsDo" name="locationsDo">
+                                <option value="">선택하세요</option>
+                            </select>
+                            <label for="locations">도</label>
+
+
+                            <select id="locationsSi" name="locationsSi">
+                                <option value="">선택하세요</option>
+                            </select>
+                            <label for="locations">시</label>
+                        </td>
+                        <td>
+                            <input type="number" name="apartmentSize" id="square" min="5" max="50" placeholder="평수">
+                            평
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <input type="hidden" id="addressSidoInput" name="addressSido" value="">
+            <div id="index1-submit">
+                <button type="submit">확인</button>
+                <button id="popupbtn">희망낙찰가 조정 세부사항 확인하기</button>
+            </div>
+        </form>
+        <!-- <div id="index1-submit">
+            <button type="submit">확인</button>
+            <button id="popupbtn">희망낙찰가 조정 세부사항 확인하기</button>
+        </div> -->
+    </div>
+</div>
+<script layout:fragment="script2" th:inline="javascript">
+    // 팝업창
+    // 버튼 엘리먼트 가져오기
+    var popupbtn = document.getElementById("popupbtn");
+
+    popupbtn.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // 팝업 창을 열기 위한 함수
+        function openPopup() {
+            // 팝업 창의 URL
+            var popupUrl = "index3.html";
+
+            // 팝업 창의 속성 (크기, 스크롤바 등)
+            var popupOptions = "width=600,height=400,scrollbars=yes";
+
+            // 팝업 창 열기
+            window.open(popupUrl, "Popup", popupOptions);
+        }
+
+    })
+
+
+    //  지역 객체선언
+    const locations = {
+        "서울특별시": ["서울특별시"],
+        "인천광역시": ["인천광역시"],
+        "세종특별자치시": ["세종특별자치시"],
+        "경기도": ["수원시", "성남시", "의정부시", "안양시", "부천시", "광명시", "동두천시", "평택시", "안산시", "고양시", "과천시", "구리시", "남양주시", "오산시", "시흥시", "군포시", "의왕시", "하남시", "용인시", "파주시", "이천시", "안성시", "김포시", "화성시", "광주시", "양주시", "포천시", "여주시"],
+        "강원특별자치도": ["춘천시", "원주시", "강릉시", "동해시", "태백시", "속초시", "삼척시"],
+        "충청북도": ["대전광역시", "청주시", "충주시", "제천시"],
+        "충청남도": ["천안시", "공주시", "보령시", "아산시", "서산시", "논산시", "계룡시", "당진시"],
+        "전라북도": ["전주시", "군산시", "익산시", "정읍시", "남원시", "김제시"],
+        "전라남도": ["광주광역시", "목포시", "여수시", "순천시", "나주시", "광양시"],
+        "경상북도": ["대구광역시", "포항시", "경주시", "김천시", "안동시", "구미시", "영주시", "영천시", "상주시", "문경시", "경산시"],
+        "경상남도": ["부산광역시", "울산광역시", "창원시", "진주시", "통영시", "사천시", "김해시", "밀양시", "거제시", "양산시"],
+        "제주특별자치도": ["제주시", "서귀포시"]
+    };
+
+    const locationsDropdownDo = document.getElementById("locationsDo");
+    const locationsDropdownSi = document.getElementById("locationsSi");
+
+
+
+
+    // 도 목록을 생성
+    for (const province in locations) {
+        const optionDo = document.createElement("option");
+        optionDo.value = province;
+        optionDo.text = province;
+        locationsDropdownDo.appendChild(optionDo);
+    }
+
+    // 도 선택 시 해당 시 목록을 업데이트
+    locationsDropdownDo.addEventListener("change", function () {
+        const selectedProvince = this.value;
+        const cities = locations[selectedProvince];
+
+        // 기존 시 목록을 지우고 새로운 시 목록을 추가
+        locationsDropdownSi.innerHTML = "<option value=''>시 선택</option>";
+        cities.forEach(city => {
+            const optionSi = document.createElement("option");
+            optionSi.value = city;
+            optionSi.text = city;
+            locationsDropdownSi.appendChild(optionSi);
+        });
+
+        console.log("locationsDo의 값:", selectedProvince);
+    });
+
+    var confirmButton = document.querySelector("form button[type='submit']");
+    confirmButton.addEventListener("click", function (event) {
+        // locationsDo와 locationsSi의 값을 가져옴
+        const selectedDo = document.getElementById("locationsDo").value;
+        const selectedSi = document.getElementById("locationsSi").value;
+
+        // 두 값을 조합하여 addressSido로 설정
+        const addressSido = selectedDo + " " + selectedSi;
+
+        // addressSido 값을 설정
+        document.getElementById("addressSidoInput").value = addressSido;
+    });
+
+</script>
+
+</html>

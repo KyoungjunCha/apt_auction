@@ -1,0 +1,32 @@
+/* 
+.container{
+    width: 90%;
+    height: 1000px;
+    margin: 0 auto;
+}
+
+.row{
+    padding-top: 200px;
+    justify-content: center; 
+    align-items: center;
+}
+
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+}
+
+.card-text {
+    flex-grow: 1; 
+    overflow: hidden; 
+}
+
+.all-border-bottom{
+    margin-top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} */

@@ -1,0 +1,76 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container video-background">
+
+    <video autoplay muted loop class="video">
+        <source src="4.mp4" type="video/mp4"> <!--배경화면-->
+    </video>
+
+    <div class="m-auto content-box">
+        <!-- <img class="receipt_top" src="receipt.svg" alt="receipt image"> -->
+        <div class="index2-main">
+            <table class="styled-table">
+                <h3>DONE Inc</h2>
+                    <h1>추가비용</h1>
+                    <tr id="first">
+                        <th>Description</th>
+                        <th style="text-align: right;">Price</th>
+                    </tr>
+                    <tr>
+                        <td>입찰 가능금액:</td>
+                        <!-- <td style="text-align: right;" th:text="${quantity} + '원'"></td> -->
+                    </tr>
+                    <tr>
+                        <td>취등록세:</td>
+                        <!-- <td style="text-align: right;" th:text="${quantity * 0.011} + '원'"></td> -->
+                    </tr>
+                    <tr>
+                        <!-- <td>명도비:</td>
+                        <td style="text-align: right;" th:text="${square * 50000} + '원'"></td> -->
+                    </tr>
+                    <tr>
+                        <td>기타 비용:</td>
+                        <td style="text-align: right;">$<input type="number" name="etc_expense" value="etc_expense"
+                                placeholder="직접 입력하세요."></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            채권 매입 금액:<button><a href="#">보러가기</a>
+                        </td>
+                        <td style="text-align: right;">$<input type="number" name="etc_expense" value="etc_expense"
+                                placeholder="직접 입력하세요."></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            경락잔금대출:<button><a href="#">보러가기</a></button> <!--대출은 보통 70~80% 나옴 1금융권 기준-->
+                        </td>
+                        <td style="text-align: right;">$<input type="number" name="etc_expense" value="etc_expense"
+                                placeholder="직접 입력하세요."></td>
+                    </tr>
+                    <tr id="final">
+                        <td>
+                            최종 입찰 가능 금액 :
+                        </td>
+                        <td style="text-align: right;">$<input type="number" name="etc_expense" value="etc_expense"
+                                placeholder="직접 입력하세요."></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            TAX + etc :
+                        </td>
+                        <td style="text-align: right;">$<input type="number" name="etc_expense" value="etc_expense"
+                                placeholder="직접 입력하세요."></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total :
+                        </td>
+                        <td style="text-align: right;">$<input type="number" name="etc_expense" value="etc_expense"
+                                placeholder="직접 입력하세요."></td>
+                    </tr>
+            </table>
+        </div>
+        <!-- <img class="receipt_bottom" src="receipt2.svg" alt="receipt image"> -->
+    </div>
+</div>
+
+</html>

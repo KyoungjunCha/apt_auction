@@ -1,0 +1,116 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+    <!-- background video yes or no -->
+
+    <!-- center -->
+    <div class="m-auto content-box">
+        <!-- 값체크 확인을 위한 페이지 입니다. -->
+        <!-- <table class="styled-table2">
+            <tr>
+                <th>경매 키</th>
+                <th>청구금액</th>
+                <th>감정일자</th>
+                <th>총경매횟수</th>
+                <th>총유찰횟수</th>
+                <th>총감정가</th>
+                <th>최저매각가격</th>
+                <th>최초경매일</th>
+                <th>최종경매일</th>
+                <th>최종결과</th>
+                <th>주소_시도</th>
+                <th>풀주소</th>
+                <th>아파트 용도</th>
+                <th>보존등기일</th>
+                <th>총층수</th>
+                <th>현재층수</th>
+                <th>기타특이사항</th>
+                <th>도로명주소</th>
+                <th>종국일자</th>
+                <th>종국결과</th>
+                <th>낙찰가</th>
+            </tr>
+            <tr>
+                <td th:text="${auctionMaster.auctionKey}"></td>
+                <td th:text="${auctionMaster.appraisalDate}"></td>
+                <td th:text="${auctionMaster.claimPrice}"></td>
+                <td th:text="${auctionMaster.auctionCount}"></td>
+                <td th:text="${auctionMaster.auctionMiscarriageCount}"></td>
+                <td th:text="${auctionMaster.totalAppraisalPrice}"></td>
+                <td th:text="${auctionMaster.minimumSalesPrice}"></td>
+                <td th:text="${auctionMaster.firstAuctionDate}"></td>
+                <td th:text="${auctionMaster.finalAuctionDate}"></td>
+                <td th:text="${auctionMaster.finalResult}"></td>
+                <td th:text="${auctionMaster.addressSido}"></td>
+                <td th:text="${auctionMaster.address}"></td>
+                <td th:text="${auctionMaster.apartmentUsage}"></td>
+                <td th:text="${auctionMaster.preserveRegistDate}"></td>
+                <td th:text="${auctionMaster.totalFloor}"></td>
+                <td th:text="${auctionMaster.currentFloor}"></td>
+                <td th:text="${auctionMaster.specific}"></td>
+                <td th:text="${auctionMaster.roadName}"></td>
+                <td th:text="${auctionMaster.closeDate}"></td>
+                <td th:text="${auctionMaster.closeResult}"></td>
+                <td th:text="${auctionMaster.hammerPrice}"></td>
+            </tr>
+        </table> -->
+
+        <table class="styled-table2">
+            <tr>
+                <!-- 열 제목 -->
+                <th>경매 키</th>
+                <!-- <th>청구금액</th> -->
+                <!-- <th>감정일자</th> -->
+                <!-- <th>총경매횟수</th> -->
+                <!-- <th>총유찰횟수</th> -->
+                <!-- <th>총감정가</th> -->
+                <!-- <th>최저매각가격</th> -->
+                <!-- <th>최초경매일</th> -->
+                <!-- <th>최종경매일</th> -->
+                <!-- <th>최종결과</th> -->
+                <th>낙찰가</th>
+                <th>예측가</th>
+                <th>주소_시도</th>
+                <th>풀주소</th>
+                <!-- <th>아파트 용도</th> -->
+                <!-- <th>보존등기일</th> -->
+                <!-- <th>총층수</th> -->
+                <!-- <th>현재층수</th> -->
+                <!-- <th>기타특이사항</th> -->
+                <th>도로명주소</th>
+                <th>아파트사이즈</th>
+                <!-- <th>종국일자</th> -->
+                <!-- <th>종국결과</th> -->
+                <!-- 다른 열 제목들 -->
+            </tr>
+            <tr th:each="auctionMaster : ${auctionMasters}">
+                <!-- 데이터 반복 출력 -->
+                <td th:text="${auctionMaster.auctionKey}"></td>
+                <!-- <td th:text="${auctionMaster.claimPrice}"></td> -->
+                <!-- <td th:text="${auctionMaster.appraisalDate}"></td> -->
+                <!-- <td th:text="${auctionMaster.auctionCount}"></td> -->
+                <!-- <td th:text="${auctionMaster.auctionMiscarriageCount}"></td> -->
+                <!-- <td th:text="${auctionMaster.totalAppraisalPrice}"></td> -->
+                <!-- <td th:text="${auctionMaster.minimumSalesPrice}"></td> -->
+                <!-- <td th:text="${auctionMaster.firstAuctionDate}"></td> -->
+                <!-- <td th:text="${auctionMaster.finalAuctionDate}"></td> -->
+                <!-- <td th:text="${auctionMaster.finalResult}"></td> -->
+                <td th:text="${auctionMaster.hammerPrice}"></td>
+                <td th:text="${auctionMaster.predictionPrice}"></td>
+                <td th:text="${auctionMaster.addressSido}"></td>
+                <td th:text="${auctionMaster.address}"></td>
+                <!-- <td th:text="${auctionMaster.apartmentUsage}"></td> -->
+                <!-- <td th:text="${auctionMaster.preserveRegistDate}"></td> -->
+                <!-- <td th:text="${auctionMaster.totalFloor}"></td> -->
+                <!-- <td th:text="${auctionMaster.currentFloor}"></td> -->
+                <!-- <td th:text="${auctionMaster.specific}"></td> -->
+                <td th:text="${auctionMaster.roadName}"></td>
+                <td th:text="${auctionMaster.apartmentSize}"></td>
+                <!-- <td th:text="${auctionMaster.closeDate}"></td> -->
+                <!-- <td th:text="${auctionMaster.closeResult}"></td> -->
+                <!-- 다른 열들에 대한 데이터 출력 -->
+            </tr>
+        </table>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,46 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+    <!-- background video yes or no -->
+
+    <!-- center -->
+    <div class="m-auto content-box">
+        <table class="styled-table2">
+            <tr>
+                <th>주소</th>
+                <th>좌표</th>
+            </tr>
+            <tr th:each="address : ${addresses}">
+                <td th:text="${address}"></td>
+                <td>
+                    <p class="coordinates" th:attr="data-address=${address}">좌표 로딩 중...</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script layout:fragment="script" th:inline="javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=918e19c2858f1bc93178402414598204&libraries=services"></script>
+    <script layout:fragment="script2" th:inline="javascript">
+        // 주소 정보 리스트 저장
+        var addresses = /*[[${addresses}]]*/;
+        // var addresses = [];
+    
+        // 좌표를 찾아서 출력
+        var geocoder = new kakao.maps.services.Geocoder();
+        
+        // 각 주소에 대한 좌표를 찾기 위한 반복문
+        addresses.forEach(function (address) {
+            geocoder.addressSearch(address, function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    var coordinatesElements = document.querySelectorAll('.coordinates[data-address="' + address + '"]');
+                    coordinatesElements.forEach(function (coordinatesElement) {
+                        coordinatesElement.innerHTML = '위도: ' + coords.getLat() + ', 경도: ' + coords.getLng();
+                    });
+                } else {
+                    console.log('주소를 좌표로 변환하는 데 실패했습니다.');
+                }
+            });
+        });
+    </script>
+</html>

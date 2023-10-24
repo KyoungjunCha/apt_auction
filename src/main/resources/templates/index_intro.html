@@ -1,0 +1,66 @@
+<html layout:decorate="~{layout}">
+<!-- content -->
+<div layout:fragment="content" class="container"> <!--뒤에 video-background 빼면 header footer 안나옴-->
+    <!-- <video autoplay muted loop class="video">
+        <source src="as1.mp4" type="video/mp4"> 
+    </video> -->
+
+    <div class="m-auto content-box main-index intro">
+        <div class="main-info">
+            <div id="app" class="m-auto"></div>
+        </div>
+        <h2> <a th:href="@{/index3}" id="intro-link">경매, 어렵지 않습니다.</a></h2>
+    </div>
+</div>
+<script layout:fragment="script2" th:inline="javascript">
+    const app = document.getElementById('app')
+    const context = '각박한 세상속 이 한몸 누일 수 있는 내 집 마련의 꿈.'
+    const textArray = context.split('');
+    const tagName = 'span'
+    let interval;
+    let timer = 150;
+    let index = 0;
+
+    const createNode = (tagname) => {
+        const tag = document.createElement(tagname);
+        return tag;
+    }
+
+    const insertLetters = () => {
+        textArray.forEach(letter => {
+            const textNode = createNode(tagName)
+            if (letter === ' ') {
+                textNode.textContent = '\xa0'
+            } else {
+                textNode.textContent = letter;
+            }
+            app.appendChild(textNode);
+        })
+    }
+
+    const addClass = () => {
+        const letters = Array.from(app.querySelectorAll(tagName))
+        letters[index].classList.add('text-animated');
+        index++;
+        if (letters.length === index) {
+            clearInterval(interval);
+            document.getElementById('intro-link').style.opacity = '1'; // visibility를 'visible'로 설정하여 요소를 나타냅니다.
+        }
+    }
+
+    const loadText = () => {
+        insertLetters();
+        const letters = Array.from(app.querySelectorAll(tagName)); // letters 변수를 loadText 함수 내에서 정의
+
+        interval = setInterval(() => {
+            addClass();
+            if (letters.length === index) {
+                clearInterval(interval);
+            }
+        }, timer);
+    }
+
+    window.addEventListener('load', loadText);
+</script>
+
+</html>
