@@ -240,7 +240,9 @@ function displayPagination(pagination) {
 function displayInfowindow(marker, title) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
 
+    // 여기에 값을연결?
     infowindow.setContent(content);
+
     infowindow.open(map, marker);
 }
 
@@ -475,15 +477,18 @@ function changeCategoryClass(el) {
 //여기부터는 db에 읽어온 주소를 출력하는 구간입니다.
 
 
-var addresses = addressesData;
+// var addresses = addressesData;
 var auctionMaster = auctionMasters;
 
+var address = auctionMasters.map(function(auctionMaster) {
+    return auctionMaster.address;
+});
 
 // 주소좌표 변환 객체를 생성
 var geocoder = new kakao.maps.services.Geocoder();
 
-for (var i = 0; i < addresses.length; i++) {
-    geocoder.addressSearch(addresses[i], createMarkerCallback(i));
+for (var i = 0; i < address.length; i++) {
+    geocoder.addressSearch(address[i], createMarkerCallback(i));
 }
 
 function createMarkerCallback(idx) {
@@ -517,17 +522,6 @@ function addMarker(position, idx) {
 
     return marker;
 }
-// var auctionKeys = auctionMasters.map(function(auctionMaster) {
-//     return auctionMaster.auctionKey;
-// });
-
-// var roadNames = auctionMasters.map(function(auctionMaster) {
-//     return auctionMaster.roadName;
-// });
-
-// var predictionPrices = auctionMasters.map(function(auctionMaster) {
-//     return auctionMaster.predictionPrice;
-// });
 
 
 var listEl = document.getElementById('placesList');
