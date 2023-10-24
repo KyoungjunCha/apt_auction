@@ -482,27 +482,6 @@ var auctionMaster = auctionMasters;
 // 주소좌표 변환 객체를 생성
 var geocoder = new kakao.maps.services.Geocoder();
 
-
-// // 각 주소에 대해 좌표 변환 후, 지도에 마커를 추가
-// for (var i = 0; i < addresses.length; i++) {
-//     geocoder.addressSearch(addresses[i], function (result, status) {
-//         if (status === kakao.maps.services.Status.OK) {
-//             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-//             // 결과값으로 받은 위치를 마커로 표시
-//             var marker = new kakao.maps.Marker({
-//                 map: map,
-//                 position: coords
-//             });
-//             marker.setMap(map); // 지도 위에 마커를 표출
-//             markers.push(marker);  // 배열에 생성된 마커를 추가
-//             // 지도의 중심을 마지막 주소의 좌표로 이동
-//             if (i === addresses.length - 1) {
-//                 map.setCenter(coords);
-//             }
-//         }
-//     });
-// }
 for (var i = 0; i < addresses.length; i++) {
     geocoder.addressSearch(addresses[i], createMarkerCallback(i));
 }
@@ -538,18 +517,56 @@ function addMarker(position, idx) {
 
     return marker;
 }
+// var auctionKeys = auctionMasters.map(function(auctionMaster) {
+//     return auctionMaster.auctionKey;
+// });
+
+// var roadNames = auctionMasters.map(function(auctionMaster) {
+//     return auctionMaster.roadName;
+// });
+
+// var predictionPrices = auctionMasters.map(function(auctionMaster) {
+//     return auctionMaster.predictionPrice;
+// });
 
 
 var listEl = document.getElementById('placesList');
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < addressesData.length; i++) {
-    var itemEl = getListItem(i, addressesData[i]);
+for (var i = 0; i < auctionMasters.length; i++) {
+    var itemEl = getListItem(i, auctionMasters[i]);
     fragment.appendChild(itemEl);
 }
 
 listEl.innerHTML = ''; // 기존 목록을 비워서 초기화
 listEl.appendChild(fragment); // 새로운 목록으로 대체
+
+function getListItem(index, auctionMaster) {
+    var el = document.createElement('li');
+    
+    var auctionKey = auctionMaster.auctionKey;
+    var roadName = auctionMaster.roadName;
+    var predictionPrice = auctionMaster.predictionPrice;
+
+    var itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
+        '<div class="info">' +
+        '   <h5>' + auctionKey + '</h5>';
+
+    if (roadName) {
+        itemStr += '    <span>' + roadName + '</span>' +
+            '   <span class="jibun gray">' + auctionMaster.address + '</span>';
+    } else {
+        itemStr += '    <span>' + auctionMaster.address + '</span>';
+    }
+
+    itemStr += '  <span class="tel">' + predictionPrice + '</span>' +
+        '</div>';
+
+    el.innerHTML = itemStr;
+    el.className = 'item';
+
+    return el;
+}
 
 
 // auctionKey
