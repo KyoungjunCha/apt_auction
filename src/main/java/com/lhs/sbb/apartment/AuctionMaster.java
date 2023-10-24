@@ -29,7 +29,7 @@ public class AuctionMaster {
     private String firstAuctionDate; //최초경매일
     private String finalAuctionDate; //최종경매일
     // private String finalResult; //최종결과
-    private String buildDate; //준공일
+    private String builtDate; //준공일
     private String addressSido; //주소_시도
     private String address; //풀주소
     // private String apartmentUsage; //아파트 용도

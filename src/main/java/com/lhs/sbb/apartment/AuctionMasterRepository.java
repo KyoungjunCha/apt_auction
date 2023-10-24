@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface AuctionMasterRepository extends JpaRepository<AuctionMaster, String> {
     // Optional<Apartment> findByauctionkey(String auctionkey);
-    // AuctionMaster findByAuctionKey(String auctionKey);
+    AuctionMaster findByAuctionKey(String auctionKey);
     
     // 낙찰가를 범위로 지정하여 값을 list 에 넣음.
     List<AuctionMaster> findByHammerPriceBetween(Long startRange, Long endRange);
