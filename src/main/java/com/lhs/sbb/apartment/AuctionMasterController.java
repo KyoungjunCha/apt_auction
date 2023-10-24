@@ -32,6 +32,14 @@ public class AuctionMasterController {
         this.auctionMasterService = auctionMasterService;
     }
 
+    @GetMapping("/{auctionKey}")
+    public String findByAuctionKey(@PathVariable String auctionKey, Model model) {
+        AuctionMaster auctionMaster = auctionMasterRepository.findByAuctionKey(auctionKey);
+        if (auctionMaster != null) {
+            model.addAttribute("auctionMaster", auctionMaster);
+        }
+        return "apartment_detail";
+    }
     // @GetMapping("/{auctionKey}")
     // public String findByAuctionKey(@PathVariable String auctionKey, Model model)
     // {

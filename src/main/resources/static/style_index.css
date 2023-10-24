@@ -161,6 +161,22 @@ select {
     border: none;
 }
 
+/* apartment_detail */
+.styled-table2 {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #FFFFFF;
+    color: black;
+}
+.styled-table2 th{
+    font-size: large;
+}
+.styled-table2 th, .styled-table2 td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
+}
+
 #index1-submit{
     display: flex;
     padding-top: 2%;
