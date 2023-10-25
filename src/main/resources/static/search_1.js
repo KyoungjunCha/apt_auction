@@ -1,8 +1,162 @@
-// 동일역할하는 함수가 꽤많음 줄이고 맵 호출함수도 하나로 통일하고 함수 흐름을 하나로 바꾸면 깔끔해 질듯?
 
-// 마커를 담을 배열입니다
-var markers = [];
+
+
+
+//여기부터는 db에 읽어온 주소를 출력하는 구간입니다.
+
+// 주소좌표 변환 객체를 생성
 var geocoder = new kakao.maps.services.Geocoder();
+
+for (var i = 0; i < auctionMasters.length; i++) {
+    geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
+}
+
+
+// 좌표로 변환한 값을 마커로 만듬.
+function createMarkerCallback(idx) {
+    return function (result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var address = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var marker = addMarker(coords, idx);
+            markers.push(marker);
+
+            if (idx === auctionMasters.length - 1) {
+                map.setCenter(address);
+            }
+        }
+    };
+}
+
+// 마커의 이미지나 포지션
+function addMarker(position, index) {
+    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
+    var imageSize = new kakao.maps.Size(36, 37);
+    var imgOptions = {
+        spriteSize: new kakao.maps.Size(36, 691),
+        spriteOrigin: new kakao.maps.Point(0, (index * 46) + 10), //마커 이미지가 15까지 밖에 없음
+        offset: new kakao.maps.Point(13, 37)
+    };
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
+    var marker = new kakao.maps.Marker({
+        position: position,
+        image: markerImage,
+        map: map
+    });
+
+    return marker;
+}
+
+var listEl = document.getElementById('placesList');
+var fragment = document.createDocumentFragment();
+listEl.innerHTML = ''; // 기존 목록을 비워서 초기화
+listEl.appendChild(fragment); // 새로운 목록으로 대체
+
+for (var i = 0; i < auctionMasters.length; i++) {
+    var itemEl = getListItem(i, auctionMasters[i]);
+    fragment.appendChild(itemEl);
+}
+
+
+
+function getListItem(index, auctionMaster) {
+    var el = document.createElement('li');
+
+    var auctionKey = auctionMaster.auctionKey;
+    var roadName = auctionMaster.roadName;
+    var predictionPrice = auctionMaster.predictionPrice;
+
+    var itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
+        '<div class="info">' +
+        '   <h5>' + auctionKey + '</h5>';
+
+    if (roadName) {
+        itemStr += '    <span>' + roadName + '</span>' +
+            '   <span class="jibun gray">' + auctionMaster.address + '</span>';
+    } else {
+        itemStr += '    <span>' + auctionMaster.address + '</span>';
+    }
+
+    itemStr += '  <span class="tel">' + predictionPrice + '</span>' +
+        '</div>';
+
+    el.innerHTML = itemStr;
+    el.className = 'item';
+
+    return el;
+}
+
+
+
+// 지도 위에 표시되고 있는 마커를 모두 제거합니다
+function removeMarker() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
+}
+
+
+var itemsPerPage = 15; // 한 페이지에 표시할 아이템 개수
+
+// 페이지 번호를 표시하고 페이지 이동을 처리하는 함수
+function displayPagination(pagination) {
+    var paginationEl = document.getElementById('pagination');
+    var fragment = document.createDocumentFragment();
+
+    // 기존에 추가된 페이지번호를 삭제합니다
+    while (paginationEl.hasChildNodes()) {
+        paginationEl.removeChild(paginationEl.lastChild);
+    }
+
+    // 페이지 번호를 표시
+    for (var i = 1; i <= pagination.last; i++) {
+        var el = document.createElement('a');
+        el.href = "#";
+        el.innerHTML = i;
+
+        if (i === pagination.current) {
+            el.className = 'on';
+        } else {
+            el.onclick = (function (i) {
+                return function () {
+                    pagination.gotoPage(i);
+                }
+            })(i);
+        }
+
+        fragment.appendChild(el);
+    }
+
+    paginationEl.appendChild(fragment);
+}
+
+// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+// 인포윈도우에 장소명을 표시합니다
+function displayInfowindow(marker, title) {
+    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+    infowindow.setContent(content);
+
+    infowindow.open(map, marker);
+}
+
+
+// 검색결과 목록의 자식 Element를 제거하는 함수입니다
+function removeAllChildNods(el) {
+    while (el.hasChildNodes()) {
+        el.removeChild(el.lastChild);
+    }
+}
+
+
+// 페이지 번호를 표시하고 페이지 이동을 처리
+displayPagination(pagination);
+
+
+
+
+
+
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -13,12 +167,38 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption);
 
+// 마커를 담을 배열입니다
+var markers = [];
+// var addresses = /*[[${addresses}]]*/;
+
+
+
 // 장소 검색 객체를 생성합니다
-var ps = new kakao.maps.services.Places(map);
+var ps = new kakao.maps.services.Places();
 
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
+
+
+
+
+
+
+// 23.10.19 키워드 장소 검색 부분 수정 요망
+// 장소검색과 해당 부분을 매핑하는 기능을 현재 가지고 있음.
+// 결과적으로 중단부 
+
+// author: 차경준
+//             date: 23.10.19
+//             decription : 주소 맵핑
+//             작업중
+// 주소검색
+// 서버에서 AuctionMaster 정보를 가져오는 함수
+
+// 부분을 병합하여함
+// displayPlaces 함수부분은 마커와 내용을 맵에 list에 기입하는 부분
+// getListItem 함수와 displayPagination 함수의 수정이 필요합니다.
 // 키워드로 장소를 검색합니다
 searchPlaces();
 
@@ -35,6 +215,8 @@ function searchPlaces() {
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch(keyword, placesSearchCB);
+
+
 }
 
 
@@ -62,6 +244,8 @@ function placesSearchCB(data, status, pagination) {
     }
 }
 
+
+
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
 
@@ -80,8 +264,9 @@ function displayPlaces(places) {
     for (var i = 0; i < places.length; i++) {
 
         // 마커를 생성하고 지도에 표시합니다
-        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-            marker = addMarker(placePosition, i),
+        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
+
+        var marker = addMarker(placePosition, i),
             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -210,6 +395,7 @@ function displayInfowindow(marker, title) {
     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
 
     infowindow.setContent(content);
+
     infowindow.open(map, marker);
 }
 
@@ -219,116 +405,3 @@ function removeAllChildNods(el) {
         el.removeChild(el.lastChild);
     }
 }
-
-// HTML에서 검색 버튼을 클릭하면 호출되는 함수
-function searchAddress() {
-    var address = document.getElementById('addressInput').value;
-
-    // 주소 검색 요청을 보냅니다
-    geocoder.addressSearch(address, function (result, status) {
-        // 정상적으로 검색이 완료된 경우
-        if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            
-            // 기존 마커를 모두 제거합니다
-            removeMarker();
-            
-            // 새로운 마커를 생성하고 지도에 표시합니다
-            addMarker(coords);
-            
-            // 검색된 주소 위치를 기준으로 지도 범위를 재설정합니다
-            map.setCenter(coords);
-        } else {
-            alert('주소 검색 결과가 없습니다.');
-        }
-    });
-}
-
-// 마커를 생성하고 지도 위에 마커를 표시하는 함수
-function addMarker(position) {
-    var marker = new kakao.maps.Marker({
-        position: position
-    });
-    
-    marker.setMap(map); // 지도 위에 마커를 표출합니다
-    markers.push(marker); // 배열에 생성된 마커를 추가합니다
-}
-
-// 이전에 생성한 마커를 모두 제거하는 함수
-function removeMarker() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-    }
-    markers = [];
-}
-
-
-
-
-
-// // 주소검색
-// // 서버에서 AuctionMaster 정보를 가져오는 함수
-// function fetchAuctionMasters() {
-//     fetch('/apartment/list')
-//         .then(response => response.json())
-//         .then(data => {
-//             // AuctionMaster 정보를 가져온 후, 지도에 마커를 추가하는 함수 호출
-//             addMarkersToMap(data);
-//         })
-//         .catch(error => {
-//             console.error('Error fetching AuctionMaster data:', error);
-//         });
-// }
-
-// // AuctionMaster 정보를 기반으로 지도에 마커를 추가하는 함수
-// function addMarkersToMap(auctionMasters) {
-//     for (var i = 0; i < auctionMasters.length; i++) {
-//         var auctionMaster = auctionMasters[i];
-//         (function (auctionMaster) {
-//             // AuctionMaster에서 주소 정보 가져오기 (이 부분은 AuctionMaster 엔티티의 필드에 따라 수정 필요)
-//             var address = auctionMaster.address;
-//             console.log(address);
-
-//             // 주소로 좌표 검색
-//             geocoder.addressSearch(address, function (result, status) {
-//                 if (status === kakao.maps.services.Status.OK) {
-//                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-//                     // 마커 생성하고 지도에 표시
-//                     var marker = new kakao.maps.Marker({
-//                         map: map,
-//                         position: coords
-//                     });
-
-//                     // 마커와 검색결과 항목을 클릭했을 때, 장소에 대한 정보를 표시하는 코드 추가 가능
-//                     // 인포윈도우로 장소에 대한 설명을 표시
-//                     var content = '<div style="width:150px;text-align:center;padding:6px 0;">' + address + '</div>';
-//                     infowindow.setContent(content);
-//                     infowindow.open(map, marker);
-
-//                     // markers 배열에 마커 저장
-//                     markers.push(marker);
-//                 } else {
-//                     console.error('Geocoding failed:', status);
-//                 }
-//             });
-//         })(auctionMaster);
-//     }
-// }
-
-// // 페이지가 로드된 후 AuctionMaster 정보를 가져오고 지도에 마커 추가
-// window.addEventListener('load', function () {
-//     fetchAuctionMasters();
-// });
-
-
-
-
-
-
-
-
-
-
-
-

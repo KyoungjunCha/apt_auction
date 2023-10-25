@@ -132,6 +132,9 @@
 
         // 두 값을 조합하여 addressSido로 설정 삼항 연산자 사용
         const addressSido = selectedDo + (selectedSi ? " " + selectedSi : "");
+        if (selectedSi == ""){
+            const filteredData = locations.filter(item => item.startsWith(selectedDo));
+        }
 
         // addressSido 값을 설정
         document.getElementById("addressSidoInput").value = addressSido;
