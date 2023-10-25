@@ -631,36 +631,201 @@ function changeCategoryClass(el) {
 
 // 주소좌표 변환 객체를 생성
 // 주소 좌표 변환 객체를 생성// 주소 좌표 변환 객체를 생성
-var geocoder = new kakao.maps.services.Geocoder();
-var markers = []; // 마커 배열
-var itemsPerPage = 15; // 한 페이지에 표시할 아이템 개수
-var map = new kakao.maps.Map(document.getElementById('map'), {
-    center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 초기 중심 좌표
-    level: 5, // 지도의 초기 레벨
-});
+// var geocoder = new kakao.maps.services.Geocoder();
+// var itemsPerPage = 15; // 한 페이지에 표시할 아이템 개수
+// var listEl = document.getElementById('placesList');
+// var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
+// // auctionMasters 배열에서 각 아이템을 가져와서 목록을 만듭니다
+// for (var i = 0; i < auctionMasters.length; i++) {
+//     geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
+// }
+
+// // 좌표로 변환한 값을 마커로 만듭니다
+// function createMarkerCallback(idx) {
+//     return function (result, status) {
+//         if (status === kakao.maps.services.Status.OK) {
+//             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+//             var marker = addMarker(coords, idx);
+//             markers.push(marker);
+
+//             if (idx === auctionMasters.length - 1) {
+//                 map.setCenter(coords);
+//                 displayPagination();
+//             }
+//         }
+//     };
+// }
+
+// // 마커의 이미지나 포지션을 설정합니다
+// function addMarker(position, index) {
+//     var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
+//     var imageSize = new kakao.maps.Size(36, 37);
+//     var imgOptions = {
+//         spriteSize: new kakao.maps.Size(36, 691),
+//         spriteOrigin: new kakao.maps.Point(0, (index * 46) + 10),
+//         offset: new kakao.maps.Point(13, 37)
+//     };
+//     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
+//     var marker = new kakao.maps.Marker({
+//         position: position,
+//         image: markerImage,
+//         map: map
+//     });
+
+//     return marker;
+// }
+
+// // 검색결과 목록에 아이템을 추가하는 함수
+// function getListItem(index, auctionMaster) {
+//     var el = document.createElement('li');
+
+//     var auctionKey = auctionMaster.auctionKey;
+//     var roadName = auctionMaster.roadName;
+//     var predictionPrice = auctionMaster.predictionPrice;
+
+//     var itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
+//         '<div class="info">' +
+//         '   <h5>' + auctionKey + '</h5>';
+
+//     if (roadName) {
+//         itemStr += '    <span>' + roadName + '</span>' +
+//             '   <span class="jibun gray">' + auctionMaster.address + '</span>';
+//     } else {
+//         itemStr += '    <span>' + auctionMaster.address + '</span>';
+//     }
+
+//     itemStr += '  <span class="tel">' + predictionPrice + '</span>' +
+//         '</div>';
+
+//     el.innerHTML = itemStr;
+//     el.className = 'item';
+
+//     return el;
+// }
+
+// // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+// function removeAllChildNodes(el) {
+//     while (el.hasChildNodes()) {
+//         el.removeChild(el.lastChild);
+//     }
+// }
+
+// // 페이지번호를 관리할 변수
+// var currentPage = 1;
+
+// // 페이지가 바뀔 때 호출되는 함수
+// function onPageChange(page) {
+//     currentPage = page;
+//     updateMarkers(); // 페이지가 변경될 때 마커 업데이트
+//     updateList(page); // 페이지가 변경될 때 목록 업데이트
+// }
+
+// // 마커 업데이트 함수
+// function updateMarkers() {
+//     // 이전 마커 모두 제거
+//     removeMarker();
+//     // 현재 페이지에 해당하는 아이템들로 마커를 생성하고 지도에 추가
+//     var startIndex = (currentPage - 1) * itemsPerPage;
+//     var endIndex = startIndex + itemsPerPage;
+
+//     for (var i = startIndex; i < endIndex && i < auctionMasters.length; i++) {
+//         geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
+//     }
+// }
+// function updateList(page) {
+//     var startIndex = (page - 1) * itemsPerPage;
+//     var endIndex = startIndex + itemsPerPage;
+//     removeAllChildNodes(listEl);
+
+//     for (var i = startIndex; i < endIndex; i++) {
+//         if (i < auctionMasters.length) {
+//             var itemEl = getListItem(i, auctionMasters[i]);
+//             listEl.appendChild(itemEl);
+//         }
+//     }
+// }
+
+
+// // 페이지 번호를 표시하고 페이지 이동을 처리
+// function displayPagination() {
+//     var paginationEl = document.getElementById('pagination');
+//     var fragment = document.createDocumentFragment();
+//     var totalPages = Math.ceil(auctionMasters.length / itemsPerPage);
+
+//     for (var i = 1; i <= totalPages; i++) {
+//         var el = document.createElement('a');
+//         el.href = "#";
+//         el.innerHTML = i;
+
+//         if (i === 1) {
+//             el.className = 'on';
+//         }
+
+//         el.addEventListener('click', function (event) {
+//             var page = parseInt(event.target.innerHTML);
+//             onPageChange(page); // 페이지 번호가 클릭되면 onPageChange 호출
+//         });
+
+//         fragment.appendChild(el);
+//     }
+//     paginationEl.appendChild(fragment);
+// }
+
+// // 초기 페이지 목록 업데이트
+// updateList(1);
+// displayPagination();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 페이지가 바뀔 때 호출되는 함수
+var geocoder = new kakao.maps.services.Geocoder();
+var itemsPerPage = 15; // 한 페이지에 표시할 아이템 개수
 var listEl = document.getElementById('placesList');
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+var markers = []; // 마커 배열
+var totalPages = Math.ceil(auctionMasters.length / itemsPerPage); // 전체 페이지 수 계산
 
-// auctionMasters 배열에서 각 아이템을 가져와서 목록을 만듭니다
-for (var i = 0; i < auctionMasters.length; i++) {
-    geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
+// 페이지 번호를 관리할 변수
+var currentPage = 1;
+
+// 페이지가 바뀔 때 호출되는 함수
+function onPageChange(page) {
+    currentPage = page;
+    updateMarkers(); // 페이지가 변경될 때 마커 업데이트
+    updateList(page); // 페이지가 변경될 때 목록 업데이트
+    displayPagination(); // 페이지 번호 갱신
 }
 
-// 좌표로 변환한 값을 마커로 만듭니다
-function createMarkerCallback(idx) {
-    return function (result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            var marker = addMarker(coords, idx);
-            markers.push(marker);
+// 마커 업데이트 함수
+function updateMarkers() {
+    // 이전 마커 모두 제거
+    removeMarker();
+    // 현재 페이지에 해당하는 아이템들로 마커를 생성하고 지도에 추가
+    var startIndex = (currentPage - 1) * itemsPerPage;
+    var endIndex = Math.min(startIndex + itemsPerPage, auctionMasters.length);
 
-            if (idx === auctionMasters.length - 1) {
-                map.setCenter(coords);
-                displayPagination();
-            }
-        }
-    };
+    for (var i = startIndex; i < endIndex; i++) {
+        geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
+    }
 }
 
 // 마커의 이미지나 포지션을 설정합니다
@@ -682,32 +847,57 @@ function addMarker(position, index) {
     return marker;
 }
 
-// 검색결과 목록에 아이템을 추가하는 함수
-function getListItem(index, auctionMaster) {
-    var el = document.createElement('li');
+// 좌표로 변환한 값을 마커로 만듭니다
+function createMarkerCallback(idx) {
+    return function (result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var marker = addMarker(coords, idx);
+            markers.push(marker);
 
-    var auctionKey = auctionMaster.auctionKey;
-    var roadName = auctionMaster.roadName;
-    var predictionPrice = auctionMaster.predictionPrice;
+            if (idx === auctionMasters.length - 1) {
+                map.setCenter(coords);
+                updateList(1); // 마지막 마커가 추가되면 목록을 업데이트
+            }
+        }
+    };
+}
 
-    var itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
-        '<div class="info">' +
-        '   <h5>' + auctionKey + '</h5>';
 
-    if (roadName) {
-        itemStr += '    <span>' + roadName + '</span>' +
-            '   <span class="jibun gray">' + auctionMaster.address + '</span>';
-    } else {
-        itemStr += '    <span>' + auctionMaster.address + '</span>';
+function updateList(page) {
+    var startIndex = (page - 1) * itemsPerPage;
+    var endIndex = Math.min(startIndex + itemsPerPage, auctionMasters.length);
+    removeAllChildNodes(listEl);
+
+    for (var i = startIndex; i < endIndex; i++) {
+        if (i < auctionMasters.length) {
+            var auctionMaster = auctionMasters[i];
+            var el = document.createElement('li');
+
+            var auctionKey = auctionMaster.auctionKey;
+            var roadName = auctionMaster.roadName;
+            var predictionPrice = auctionMaster.predictionPrice;
+
+            var itemStr = '<span class="markerbg marker_' + (i + 1) + '"></span>' +
+                '<div class="info">' +
+                '   <h5>' + auctionKey + '</h5>';
+
+            if (roadName) {
+                itemStr += '    <span>' + roadName + '</span>' +
+                    '   <span class="jibun gray">' + auctionMaster.address + '</span>';
+            } else {
+                itemStr += '    <span>' + auctionMaster.address + '</span>';
+            }
+
+            itemStr += '  <span class="tel">' + predictionPrice + '</span>' +
+                '</div>';
+
+            el.innerHTML = itemStr;
+            el.className = 'item';
+
+            listEl.appendChild(el);
+        }
     }
-
-    itemStr += '  <span class="tel">' + predictionPrice + '</span>' +
-        '</div>';
-
-    el.innerHTML = itemStr;
-    el.className = 'item';
-
-    return el;
 }
 
 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -717,53 +907,36 @@ function removeAllChildNodes(el) {
     }
 }
 
-// 검색결과 목록을 업데이트하는 함수
-function updateList(page) {
-    var startIndex = (page - 1) * itemsPerPage;
-    var endIndex = startIndex + itemsPerPage;
-    removeAllChildNodes(listEl);
-
-    for (var i = startIndex; i < endIndex; i++) {
-        if (i < auctionMasters.length) {
-            var itemEl = getListItem(i, auctionMasters[i]);
-            listEl.appendChild(itemEl);
-        }
-    }
-}
-
 // 페이지 번호를 표시하고 페이지 이동을 처리
 function displayPagination() {
     var paginationEl = document.getElementById('pagination');
     var fragment = document.createDocumentFragment();
-    var totalPages = Math.ceil(auctionMasters.length / itemsPerPage);
 
-    for (var i = 1; i <= totalPages; i++) {
+    // 현재 페이지를 기준으로 어떤 페이지 번호를 보여줄지 계산
+    var pageStart = Math.max(1, currentPage - 5); // 예를 들어 현재 페이지가 6이면 1부터 시작
+    var pageEnd = Math.min(totalPages, pageStart + 10); // 페이지가 10개까지만 표시
+
+    for (var i = pageStart; i <= pageEnd; i++) {
         var el = document.createElement('a');
         el.href = "#";
         el.innerHTML = i;
 
-        if (i === 1) {
+        if (i === currentPage) {
             el.className = 'on';
         }
 
         el.addEventListener('click', function (event) {
             var page = parseInt(event.target.innerHTML);
-            updateList(page);
-
-            // Remove 'on' class from all pagination links
-            var paginationLinks = document.querySelectorAll('#pagination a');
-            for (var j = 0; j < paginationLinks.length; j++) {
-                paginationLinks[j].classList.remove('on');
-            }
-
-            // Add 'on' class to the clicked pagination link
-            event.target.classList.add('on');
+            onPageChange(page);
         });
 
         fragment.appendChild(el);
     }
+
+    paginationEl.innerHTML = '';
     paginationEl.appendChild(fragment);
 }
 
 // 초기 페이지 목록 업데이트
-updateList(1);
+updateMarkers();
+displayPagination();
