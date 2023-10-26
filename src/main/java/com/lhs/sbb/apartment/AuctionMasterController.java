@@ -93,6 +93,10 @@ public class AuctionMasterController {
         model.addAttribute("addresses", addresses); // 주소만 추출
         // System.out.println(model.toString());
 
+        model.addAttribute("price", price); // 가격정보 전달
+        model.addAttribute("addressSido", addressSido); // 가격정보 전달
+        model.addAttribute("apartmentSize", apartmentSize); // 가격정보 전달
+
 
         return "map_form";
     }

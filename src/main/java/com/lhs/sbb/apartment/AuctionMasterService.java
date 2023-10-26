@@ -20,7 +20,8 @@ public class AuctionMasterService {
         Long startRange = (price / 100_000_000) * 100_000_000;
         Long endRange = startRange + 99_999_999;
 
-        List<AuctionMaster> byPriceRange = auctionMasterRepository.findByHammerPriceBetween(startRange, endRange);
+        // List<AuctionMaster> byPriceRange = auctionMasterRepository.findByHammerPriceBetween(startRange, endRange);
+        List<AuctionMaster> byPriceRange = auctionMasterRepository.findByPredictionPriceBetween(startRange, endRange);
         // System.out.println(byPriceRange);
 
         // 필터링된 주소 정보를 저장할 리스트
