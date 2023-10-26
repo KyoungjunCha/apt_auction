@@ -19,5 +19,6 @@ public interface AuctionMasterRepository extends JpaRepository<AuctionMaster, St
     // 낙찰가를 범위로 지정하여 값을 list 에 넣음.
     List<AuctionMaster> findByHammerPriceBetween(Long startRange, Long endRange);
 
-    
+    // 예측낙찰가를 범위로 지정하여 값을 list 에 넣음.
+    List<AuctionMaster> findByPredictionPriceBetween(Long startRange, Long endRange);
 }
