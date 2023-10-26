@@ -28,4 +28,9 @@ public class MainController {
         return "index3";
     }
 
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/index3";
+    }
+
 }

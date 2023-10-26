@@ -2,7 +2,7 @@
 <!-- content -->
 <div layout:fragment="content" class="container video-background">
     <video autoplay muted loop class="video">
-        <source src="4.mp4" type="video/mp4"> <!--배경화면-->
+        <source src="as2.mp4" type="video/mp4"> <!--배경화면-->
     </video>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <!-- card 01 -->
@@ -10,13 +10,13 @@
             <div class="card">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="270"
                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="자리표시자: 썸네일">
-                    <rect width="100%" height="100%" fill="#cad2c5" stroke="none"></rect>
+                    <rect width="100%" height="100%" fill="#00b4d8" stroke="none"></rect>
                     <image href="sv1.svg" x="30%" y="20%" width="40%" height="40%" />
                     <text x="38%" y="70%" fill="white" dy="1em">시뮬레이션</text>
                 </svg>
                 <div class="card-body">
                     <p class="card-text">
-                        예상 낙찰가 페이지입니다.
+                        입찰가에 맞는 매물을 찾아보세요.
                     </p>
                     <div class="d-flex align-items-center">
                         <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -31,17 +31,17 @@
             <div class="card">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="270"
                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="자리표시자: 썸네일">
-                    <rect width="100%" height="100%" fill="#84a98c"></rect>
-                    <image href="sv2.svg" x="28%" y="20%" width="45%" height="45%" />
-                    <text x="40%" y="72%" fill="white" dy="1em">지도찾기</text>
+                    <rect width="100%" height="100%" fill="#0077b6"></rect>
+                    <image href="sv4.svg" x="28%" y="20%" width="45%" height="45%" />
+                    <text x="35%" y="68%" fill="white" dy="1em">모든매물보기</text>
                 </svg>
                 <div class="card-body">
                     <p class="card-text">
-                        입찰조회 페이지입니다.
+                        모든 경매 매물을 확인해보세요.
                     </p>
                     <div class="d-flex align-items-center">
                         <button type="button" class="btn btn-sm btn-outline-secondary">
-                            보러가기
+                            <a th:href="@{/index1}">보러가기</a>
                         </button>
                     </div>
                 </div>
@@ -52,17 +52,17 @@
             <div class="card">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="270"
                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="자리표시자: 썸네일">
-                    <rect width="100%" height="100%" fill="#354f52"></rect>
+                    <rect width="100%" height="100%" fill="#03045e"></rect>
                     <image href="sv3.svg" x="28%" y="20%" width="45%" height="45%" />
                     <text x="40%" y="72%" fill="white" dy="1em">게시판</text>
                 </svg>
                 <div class="card-body">
                     <p class="card-text">
-                        정보교류 게시판입니다.
+                        정보를 교류해 보세요.
                     </p>
                     <div class="d-flex align-items-center">
                         <button type="button" class="btn btn-sm btn-outline-secondary">
-                            보러가기
+                            <a th:href="@{/question/list}">보러가기</a>
                         </button>
                     </div>
                 </div>

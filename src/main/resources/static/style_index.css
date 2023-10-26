@@ -19,6 +19,10 @@
     background-color: white;
 } */
 
+.index3{
+    width: 70;
+}
+
 /* index2 */
 .index2-main {
     margin: 0 auto;
@@ -185,7 +189,7 @@ select {
 
 #index1-submit > button{
     margin: 3px;
-    border: 1px solid black;
+    border: none;
     width: 50%;
     height: 50px;
     border-radius: 5px;
@@ -193,5 +197,23 @@ select {
 #apartmentSize{
     border-radius: 5px;
     text-align: right;
+    border: none;
+
 }
 
+#popupbtn {
+    font-size: 20px;
+    border: none;
+
+}
+
+#index1-submit > button{
+    margin-left: 25%;
+    border: none;
+
+}
+#index1-submit-btn{
+    font-size: 25px;
+    border: none;
+
+}

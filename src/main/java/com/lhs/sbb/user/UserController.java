@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "index3";
+        return "/login/login_form";
     }   
     
 
@@ -56,6 +56,6 @@ public class UserController {
             return "/signup/signup_form";
         }
 
-        return "index3";
+        return "redirect:/";
     }
 }
