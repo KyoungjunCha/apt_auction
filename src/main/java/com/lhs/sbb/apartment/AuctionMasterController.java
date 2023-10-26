@@ -71,6 +71,7 @@ public class AuctionMasterController {
             @RequestParam(value = "price", required = false) Long price,
             @RequestParam(value = "addressSido", required = false) String addressSido,
             @RequestParam(value = "apartmentSize", required = false) Integer apartmentSize,
+
             Model model) {
 
         // 필터링할 주소 정보를 모두 검색
@@ -91,11 +92,28 @@ public class AuctionMasterController {
         model.addAttribute("addresses", addresses); // 주소만 추출
         // System.out.println(model.toString());
 
+        model.addAttribute("addressSido", addressSido);
+
+        model.addAttribute("price", price);
+        model.addAttribute("apartmentSize", apartmentSize);
+
         return "map_form";
     }
 
+    // @GetMapping("/apartmentdetail")
+    // public String detail(){
+
+    // return "apartment_detail";
+    // }
+
     @RequestMapping("/popup")
-    public String showPopup() {
+    public String showPopup(@RequestParam(value = "price", required = false) Long price,
+            @RequestParam(value = "apartmentSize", required = false) Integer apartmentSize,
+            Model model) {
+
+        model.addAttribute("price", price);
+        model.addAttribute("apartmentSize", apartmentSize);
+
         return "popup"; // 이렇게 리턴하면 "popup.html" 페이지로 이동합니다.
     }
 

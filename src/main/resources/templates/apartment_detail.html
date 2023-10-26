@@ -91,58 +91,37 @@
               <td th:text="${#numbers.formatInteger(1000000, 3, 'COMMA') + ' 원'}">
               </td>
               <td colspan=2>
-                <button type="button" class="btn btn-outline-primary">예상 비용 산출</button>
+                <button type="button" class="btn btn-outline-primary" id="popupbtn">예상 비용 산출</button>
               </td>
             </tr>
           </tbody>
         </table>
-        
-        <!-- <table class="styled-table2">
-            <tr>
-                <th>경매 키</th>
-                <th>감정일자</th>
-                <th>총유찰횟수</th>
-                <th>총감정가</th>
-                <th>최저매각가격</th>
-                <th>최초경매일</th>
-                <th>최종경매일</th>
-                <th>준공일</th>
-                <th>주소_시도</th>
-                <th>주소_번지</th>
-                <th>주소_도로명</th>
-                <th>총층수</th>
-                <th>현재층수</th>
-                <th>아파트평수</th>
-                <th>인근아파트 낙찰율</th>
-                <th>조회수</th>
-                <th>실거래가</th>
-                <th>낙찰가</th>
-                <th>예측낙찰가</th>
-            </tr>
-            <tr>
-                <td th:text="${auctionMaster.auctionKey}"></td>
-                <td th:text="${auctionMaster.appraisalDate}"></td>
-                <td th:text="${auctionMaster.auctionMiscarriageCount}"></td>
-                <td th:text="${auctionMaster.totalAppraisalPrice}"></td>
-                <td th:text="${auctionMaster.minimumSalesPrice}"></td>
-                <td th:text="${auctionMaster.firstAuctionDate}"></td>
-                <td th:text="${auctionMaster.finalAuctionDate}"></td>
-                <td th:text="${auctionMaster.builtDate}"></td>
-                <td th:text="${auctionMaster.addressSido}"></td>
-                <td th:text="${auctionMaster.address}"></td>
-                <td th:text="${auctionMaster.roadName}"></td>
-                <td th:text="${auctionMaster.totalFloor}"></td>
-                <td th:text="${auctionMaster.currentFloor}"></td>
-                <td th:text="${auctionMaster.apartmentSize}"></td>
-                <td th:text="${auctionMaster.vicinityRate}"></td>
-                <td th:text="${auctionMaster.viewCount}"></td>
-                <td th:text="${auctionMaster.realPrice}"></td>
-                <td th:text="${auctionMaster.hammerPrice}"></td>
-                <td th:text="${auctionMaster.predictionPrice}"></td>
-            </tr>
-        </table> -->
       </div>
     </div>
 </div>
+<script layout:fragment="script2" th:inline="javascript">
+  // 팝업창
+  // 버튼 엘리먼트 가져오기
+  // var popupbtn = document.getElementById("popupbtn");
+
+  function openPopup() {
+      // 팝업 창의 URL
+      var popupUrl = "/auction/popup?";
+      var name = "popup";
+      // 팝업 창의 속성 (크기, 스크롤바 등)
+      var popupOptions = "width=900px,height=800px,scrollbars=yes";
+
+      // 팝업 창 열기
+      window.open(popupUrl, name, popupOptions);
+  }
+
+  // 이제 버튼 클릭 이벤트를 설정
+  var popupbtn = document.getElementById("popupbtn");
+  popupbtn.addEventListener("click", function (event) {
+      openPopup(); // openpopup 함수 호출
+  });
+
+
+</script>
 
 </html>
