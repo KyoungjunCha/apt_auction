@@ -36,17 +36,17 @@
         border: 1px solid #000;
         padding: 10px;
     } */
-    .styled-table1 td {
+    .popup-table1 td {
         text-align: center;
     }
 
-    .styled-table2 {
+    .popup-table2 {
         
         border-collapse: separate;
         border-spacing: 10px 10px;
     }
 
-    .styled-table th {
+    .popup-table th {
         margin: 5px 0;
     }
 
@@ -56,7 +56,7 @@
 <body>
     <h3>DONE Inc</h3>
         <div class="container">
-            <table class="styled-table1">
+            <table class="popup-table">
                 <colgroup>
                     <col width="300">
                     <col width="700">
@@ -69,7 +69,7 @@
                 </tr>
             </table>    
                 <hr class="division-line">
-            <table class="styled-table2"> 
+            <table class="popup-table2"> 
                 <colgroup>
                     <col width="400">
                     <col width="600">
@@ -77,17 +77,17 @@
                 </colgroup>       
                 <tr>    <!-- 1행-->
                     <td>희망 낙찰가</td>
-                    <!-- <td style="text-align: right;" th:text="${quantity} + '원'"></td> -->
+                    <td style="text-align: right;" th:text="${price} + '원'"></td>
                 </tr>
                 <tr>
                     <td>TAX(3.3%)</td>
-                    <!-- <td style="text-align: right;" th:text="${quantity * 0.011} + '원'"></td> -->
+                    <td style="text-align: right;" th:text="${price * 0.011} + '원'"></td>
                     <td>취득세+농어촌특별세+지방교육세</td>
                     <td>   - </td>
                 </tr>
                 <tr>
                     <td>명도비용</td>
-                    <!-- <td style="text-align: right;" th:text="${square * 50000} + '원'"></td> --> 
+                    <td style="text-align: right;" th:text="${apartmentSize * 50000} + '원'"></td> 
                     <td>강제집행비용<a href="#">[?]</a></td>
                     <td style="text-align: right;">  - <input type="number" name="etc_expense" value="etc_expense"
                             placeholder="직접 입력하세요."></td>

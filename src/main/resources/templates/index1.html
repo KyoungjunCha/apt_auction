@@ -13,7 +13,7 @@
             <p>낙찰가를 예측하여 부동산 경매에 도움을 드립니다.</p>
         </div>
 
-        <form th:action="@{/auction/list/custom-filters}" method="post" class="index1-form m-auto">
+        <form th:action="@{/auction/list/custom-filters}" method="post" id="myForm" class="index1-form m-auto">
             <div id="input-info">
                 <table class="m-auto styled-table1">
                     <tr>
@@ -21,7 +21,7 @@
                         <th id="th2">*지역과 평수를 선택해 주세요.</th>
                     </tr>
                     <tr>
-                        <td><input type="number" name="price" id="quantity" min="0" max="10000000000"
+                        <td><input type="number" name="price" id="price" min="0" max="10000000000"
                                 placeholder="원하시는 금액을 적어주세요.">원</td>
                         <td>
                             <select id="locationsDo" name="locationsDo">
@@ -36,7 +36,7 @@
                             <label for="locations">시</label>
                         </td>
                         <td>
-                            <input type="number" name="apartmentSize" id="square" min="5" max="50" placeholder="평수">
+                            <input type="number" name="apartmentSize" id="apartmentSize" min="5" max="50" placeholder="평수">
                             평
                         </td>
                     </tr>
@@ -45,36 +45,32 @@
             <input type="hidden" id="addressSidoInput" name="addressSido" value="">
             <div id="index1-submit">
                 <button type="submit">확인</button>
-                <button id="popupbtn">희망낙찰가 조정 세부사항 확인하기</button>
             </div>
         </form>
-        <!-- <div id="index1-submit">
-            <button type="submit">확인</button>
-            <button id="popupbtn">희망낙찰가 조정 세부사항 확인하기</button>
-        </div> -->
+        <a  style="float: right;" href="javascript:openpopup()" id="popupbtn" >*희망낙찰가 조정 세부사항 확인하기</a>
     </div>
 </div>
 <script layout:fragment="script2" th:inline="javascript">
     // 팝업창
     // 버튼 엘리먼트 가져오기
+    // var popupbtn = document.getElementById("popupbtn");
+
+    function openPopup() {
+        // 팝업 창의 URL
+        var popupUrl = "/auction/popup";
+        var name = "popup";
+        // 팝업 창의 속성 (크기, 스크롤바 등)
+        var popupOptions = "width=900px,height=800px,scrollbars=yes";
+
+        // 팝업 창 열기
+        window.open(popupUrl, name, popupOptions);
+    }
+
+    // 이제 버튼 클릭 이벤트를 설정
     var popupbtn = document.getElementById("popupbtn");
-
     popupbtn.addEventListener("click", function (event) {
-        event.preventDefault();
-
-        // 팝업 창을 열기 위한 함수
-        function openPopup() {
-            // 팝업 창의 URL
-            var popupUrl = "index3.html";
-
-            // 팝업 창의 속성 (크기, 스크롤바 등)
-            var popupOptions = "width=600,height=400,scrollbars=yes";
-
-            // 팝업 창 열기
-            window.open(popupUrl, "Popup", popupOptions);
-        }
-
-    })
+        openPopup(); // openpopup 함수 호출
+    });
 
 
     //  지역 객체선언
@@ -132,7 +128,7 @@
 
         // 두 값을 조합하여 addressSido로 설정 삼항 연산자 사용
         const addressSido = selectedDo + (selectedSi ? " " + selectedSi : "");
-        if (selectedSi == ""){
+        if (selectedSi == "") {
             const filteredData = locations.filter(item => item.startsWith(selectedDo));
         }
 
