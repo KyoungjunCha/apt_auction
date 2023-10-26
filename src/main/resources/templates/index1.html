@@ -47,21 +47,22 @@
             <div id="index1-submit">
                 <button type="submit">확인</button>
             </div>
-            <a  style="float: right;" href="javascript:openpopup()" id="popupbtn">*희망낙찰가 조정 세부사항 확인하기</a>
+            <a  style="float: right;" href="javascript:openPopup()" id="popupbtn">*희망낙찰가 조정 세부사항 확인하기</a>
         </form>
     </div>
 </div>
 <script layout:fragment="script2" th:inline="javascript">
     // 팝업창
     // 버튼 엘리먼트 가져오기
-    // var popupbtn = document.getElementById("popupbtn");
 
-    // var price = /*${price}*/;
-    // var apartmentSize = /*${apartmentSize}*/;
     function openPopup() {
         // 팝업 창의 URL
-        var popupUrl = "/auction/popup";
-        var name = "popup";
+        var price = document.getElementById("price").value;
+        // console.log(price)
+        var apartmentSize = document.getElementById("apartmentSize").value;
+        var popupUrl = "/auction/popup?apartmentSize=" + apartmentSize;
+        popupUrl += '&price=' + price;
+        // console.log(popupUrl);        var name = "popup";
         // 팝업 창의 속성 (크기, 스크롤바 등)
         var popupOptions = "width=900px,height=800px,scrollbars=yes";
 
@@ -70,10 +71,10 @@
     }
 
     // 이제 버튼 클릭 이벤트를 설정
-    var popupbtn = document.getElementById("popupbtn");
-    popupbtn.addEventListener("click", function (event) {
-        openPopup(); // openpopup 함수 호출
-    });
+    // var popupbtn = document.getElementById("popupbtn");
+    // popupbtn.addEventListener("click", function (event) {
+    //     openPopup(); // openpopup 함수 호출
+    // });
 
 
     //  지역 객체선언
