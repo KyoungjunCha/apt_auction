@@ -800,43 +800,51 @@ function changeCategoryClass(el) {
 var geocoder = new kakao.maps.services.Geocoder();
 var itemsPerPage = 15; // 한 페이지에 표시할 아이템 개수
 var listEl = document.getElementById('placesList');
-var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-var markers = []; // 마커 배열
+var infowindow = new kakao.maps.InfoWindow({ zIndex: 3 });
 var totalPages = Math.ceil(auctionMasters.length / itemsPerPage); // 전체 페이지 수 계산
 
 // 페이지 번호를 관리할 변수
 var currentPage = 1;
 
+function createInfoWindow(content, position) {
+    var infoWindow = new kakao.maps.InfoWindow({
+        content: content,
+        position: position,
+        zIndex: 4 // 원하는 z-index 값으로 설정합니다.
+    });
+
+    return infoWindow;
+}
+
 // 페이지가 바뀔 때 호출되는 함수
 function onPageChange(page) {
     currentPage = page;
-    updateMarkers(); // 페이지가 변경될 때 마커 업데이트
     updateList(page); // 페이지가 변경될 때 목록 업데이트
-    displayPagination(); // 페이지 번호 갱신
+    updateMarkers(); // 페이지가 변경될 때 마커 업데이트
+    testdisplayPagination(); // 페이지 번호 갱신
 }
 
-// 마커 업데이트 함수
-function updateMarkers() {
-    // 이전 마커 모두 제거
-    removeMarker();
-    // 현재 페이지에 해당하는 아이템들로 마커를 생성하고 지도에 추가
-    var startIndex = (currentPage - 1) * itemsPerPage;
-    var endIndex = Math.min(startIndex + itemsPerPage, auctionMasters.length);
-
-    for (var i = startIndex; i < endIndex; i++) {
-        geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
+function testremoveMarker() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
     }
+    markers = [];
 }
-
 // 마커의 이미지나 포지션을 설정합니다
-function addMarker(position, index) {
+function testaddMarker(position, index) {
     var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
     var imageSize = new kakao.maps.Size(36, 37);
+
+    // 이미지 스프라이트 시트의 각 마커 위치를 계산
+    var spriteX = 0;
+    var spriteY = (index * 46) + 10;
+
     var imgOptions = {
         spriteSize: new kakao.maps.Size(36, 691),
-        spriteOrigin: new kakao.maps.Point(0, (index * 46) + 10),
+        spriteOrigin: new kakao.maps.Point(spriteX, spriteY),
         offset: new kakao.maps.Point(13, 37)
     };
+
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
     var marker = new kakao.maps.Marker({
         position: position,
@@ -847,12 +855,13 @@ function addMarker(position, index) {
     return marker;
 }
 
+
 // 좌표로 변환한 값을 마커로 만듭니다
 function createMarkerCallback(idx) {
     return function (result, status) {
         if (status === kakao.maps.services.Status.OK) {
             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            var marker = addMarker(coords, idx);
+            var marker = testaddMarker(coords, idx);
             markers.push(marker);
 
             if (idx === auctionMasters.length - 1) {
@@ -908,7 +917,7 @@ function removeAllChildNodes(el) {
 }
 
 // 페이지 번호를 표시하고 페이지 이동을 처리
-function displayPagination() {
+function testdisplayPagination() {
     var paginationEl = document.getElementById('pagination');
     var fragment = document.createDocumentFragment();
 
@@ -937,6 +946,19 @@ function displayPagination() {
     paginationEl.appendChild(fragment);
 }
 
+function updateMarkers() {
+    testremoveMarker(); // 이전 마커 제거
+    // 현재 페이지에 해당하는 아이템들로 마커를 생성하고 지도에 추가
+    var startIndex = (currentPage - 1) * itemsPerPage;
+    var endIndex = Math.min(startIndex + itemsPerPage, auctionMasters.length);
+
+    for (var i = startIndex; i < endIndex; i++) {
+        geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
+    }
+}
+
+
 // 초기 페이지 목록 업데이트
-updateMarkers();
-displayPagination();
+updateMarkers(); // 새로운 마커 생성
+testdisplayPagination();
+

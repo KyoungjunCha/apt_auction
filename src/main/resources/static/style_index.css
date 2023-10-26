@@ -132,7 +132,7 @@ select {
     width: 40%;
     height: 30px;
 }
-#quantity{
+#price{
     width: 70%;
     height: 30px;
     border-radius: 5px;
@@ -190,7 +190,8 @@ select {
     height: 50px;
     border-radius: 5px;
 }
-#square{
+#apartmentSize{
     border-radius: 5px;
     text-align: right;
 }
+

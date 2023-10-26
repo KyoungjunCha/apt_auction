@@ -51,23 +51,21 @@ public class AuctionMasterController {
     // return "apartment_form";
     // }
 
-
     // @GetMapping("/list")
     // // @ResponseBody
     // public String listAllAuctionMasters(Model model) {
-    //     List<AuctionMaster> allAuctionMasters = auctionMasterRepository.findAll();
-    //     model.addAttribute("auctionMasters", allAuctionMasters);
+    // List<AuctionMaster> allAuctionMasters = auctionMasterRepository.findAll();
+    // model.addAttribute("auctionMasters", allAuctionMasters);
 
-    //     // 주소 정보 추출 및 타임리프에 추가하기
-    //     List<String> addresses = allAuctionMasters.stream() // 스트림 형식으로 변환
-    //             .map(AuctionMaster::getAddress) // AuctionMaster 에서 주소 추출
-    //             .collect(Collectors.toList()); // 주소정보 List 변환
-    //     model.addAttribute("addresses", addresses);
+    // // 주소 정보 추출 및 타임리프에 추가하기
+    // List<String> addresses = allAuctionMasters.stream() // 스트림 형식으로 변환
+    // .map(AuctionMaster::getAddress) // AuctionMaster 에서 주소 추출
+    // .collect(Collectors.toList()); // 주소정보 List 변환
+    // model.addAttribute("addresses", addresses);
 
-    //     return "apartment_form";
+    // return "apartment_form";
     // }
 
-    
     @PostMapping("/list/custom-filters")
     public String listAuctionMastersBasedOnFilters(
             @RequestParam(value = "price", required = false) Long price,
@@ -78,27 +76,28 @@ public class AuctionMasterController {
         // 필터링할 주소 정보를 모두 검색
         List<AuctionMaster> filteredAuctionMasters = auctionMasterService.getAuctionMastersBasedOnFilters(price,
                 addressSido, apartmentSize);
-                // System.out.println(filteredAuctionMasters);
+        // System.out.println(filteredAuctionMasters);
         // // 필터링된 주소 정보만 추출
         List<String> addresses = filteredAuctionMasters.stream()
                 .map(AuctionMaster::getAddress)
                 .collect(Collectors.toList());
 
-                // System.out.println("test0");
-        
+        // System.out.println("test0");
+
         // 모델에 필터링된 정보 및 주소 정보를 추가
-        model.addAttribute("auctionMasters", filteredAuctionMasters);//정보 전부
+        model.addAttribute("auctionMasters", filteredAuctionMasters);// 정보 전부
         // System.out.println("test1");
 
         model.addAttribute("addresses", addresses); // 주소만 추출
         // System.out.println(model.toString());
 
-        model.addAttribute("price", price); // 가격정보 전달
-        model.addAttribute("addressSido", addressSido); // 가격정보 전달
-        model.addAttribute("apartmentSize", apartmentSize); // 가격정보 전달
-
 
         return "map_form";
+    }
+
+    @RequestMapping("/popup")
+    public String showPopup() {
+        return "popup"; // 이렇게 리턴하면 "popup.html" 페이지로 이동합니다.
     }
 
 }
