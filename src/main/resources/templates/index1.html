@@ -6,24 +6,20 @@
     </video>
 
 
-    <div class="m-auto content-box main-index index1">
-        <div class="main-info">
-            <!-- 크게 왼쪽부터 -->
-            <p>실 거주자를 위한 내 집 마련 첫 걸음</p>
-            <p>낙찰가를 예측하여 부동산 경매에 도움을 드립니다.</p>
-        </div>
-
-        <form th:action="@{/auction/list/custom-filters}" method="post" id="myForm" class="index1-form m-auto">
+    <div class=" content-box main-index index1">
+        <form th:action="@{/auction/list/custom-filters}" method="post" id="myForm" class="index1-form">
             <div id="input-info">
-                <table class="m-auto styled-table1">
-                    <tr>
-                        <th id="th1">*본인의 입찰 가능한 금액을 입력해주세요.</th>
-                        <th id="th2">*지역과 평수를 선택해 주세요.</th>
-                    </tr>
-                    <tr>
-                        <td><input type="number" name="price" id="price" min="0" max="10000000000"
-                                placeholder="원하시는 금액을 적어주세요.">원</td>
-                        <td>
+                <table class="styled-table1">
+                    <ul id="index1-ul">
+                        <p>*본인의 입찰 다능한 금액을 입력해주세요.</p>
+                        <li>
+                            <input type="number" name="price" id="price" min="0" max="10000000000"
+                                placeholder="원하시는 금액을 적어주세요.">원
+                        </li>
+
+
+                        <p>*희망 평수와 지역을 선택해 주세요.</p>
+                        <li id="index1-li2">
                             <select id="locationsDo" name="locationsDo">
                                 <option value="">선택하세요</option>
                             </select>
@@ -34,35 +30,33 @@
                                 <option value="">선택하세요</option>
                             </select>
                             <label for="locations">시</label>
-                        </td>
-                        <td>
                             <input type="number" name="apartmentSize" id="apartmentSize" min="5" max="50"
-                                placeholder="평수">
-                            평
-                        </td>
-                    </tr>
+                                placeholder="평수">평
+                        </li>
+                        <p>
+                            <a href="javascript:openpopup()" id="popupbtn">*희망낙찰가 조정 세부사항 확인하기</a>
+                        </p>
+                    </ul>
                 </table>
             </div>
             <input type="hidden" id="addressSidoInput" name="addressSido" value="">
             <div id="index1-submit" class="m-auto">
-                <button id="index1-submit-btn" type="submit">확인</button>
+                <button id="index1-submint" type="submit">확인</button>
             </div>
-            <a  style="float: right;" href="javascript:openPopup()" id="popupbtn">*희망낙찰가 조정 세부사항 확인하기</a>
         </form>
     </div>
 </div>
 <script layout:fragment="script2" th:inline="javascript">
     // 팝업창
     // 버튼 엘리먼트 가져오기
+    // var popupbtn = document.getElementById("popupbtn");
 
+    // var price = /*${price}*/;
+    // var apartmentSize = /*${apartmentSize}*/;
     function openPopup() {
         // 팝업 창의 URL
-        var price = document.getElementById("price").value;
-        // console.log(price)
-        var apartmentSize = document.getElementById("apartmentSize").value;
-        var popupUrl = "/auction/popup?apartmentSize=" + apartmentSize;
-        popupUrl += '&price=' + price;
-        // console.log(popupUrl);        var name = "popup";
+        var popupUrl = "/auction/popup";
+        var name = "popup";
         // 팝업 창의 속성 (크기, 스크롤바 등)
         var popupOptions = "width=900px,height=800px,scrollbars=yes";
 
@@ -71,10 +65,10 @@
     }
 
     // 이제 버튼 클릭 이벤트를 설정
-    // var popupbtn = document.getElementById("popupbtn");
-    // popupbtn.addEventListener("click", function (event) {
-    //     openPopup(); // openpopup 함수 호출
-    // });
+    var popupbtn = document.getElementById("popupbtn");
+    popupbtn.addEventListener("click", function (event) {
+        openPopup(); // openpopup 함수 호출
+    });
 
 
     //  지역 객체선언

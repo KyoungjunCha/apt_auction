@@ -32,14 +32,14 @@ public class AuctionMasterController {
         this.auctionMasterService = auctionMasterService;
     }
 
-    @GetMapping("/{auctionKey}")
-    public String findByAuctionKey(@PathVariable String auctionKey, Model model) {
-        AuctionMaster auctionMaster = auctionMasterRepository.findByAuctionKey(auctionKey);
-        if (auctionMaster != null) {
-            model.addAttribute("auctionMaster", auctionMaster);
-        }
-        return "apartment_detail";
-    }
+    // @GetMapping("/{auctionKey}")
+    // public String findByAuctionKey(@PathVariable String auctionKey, Model model) {
+    //     AuctionMaster auctionMaster = auctionMasterRepository.findByAuctionKey(auctionKey);
+    //     if (auctionMaster != null) {
+    //         model.addAttribute("auctionMaster", auctionMaster);
+    //     }
+    //     return "apartment_detail";
+    // }
     // @GetMapping("/{auctionKey}")
     // public String findByAuctionKey(@PathVariable String auctionKey, Model model)
     // {
@@ -124,4 +124,20 @@ public class AuctionMasterController {
         return "popup"; // 이렇게 리턴하면 "popup.html" 페이지로 이동합니다.
     }
 
+
+    @GetMapping("/apartment_detail")
+    public String showApartmentDetail(@RequestParam(value = "auctionKey", required = false) String auctionKey, Model model) {
+        // auctionKey를 이용하여 해당 아파트의 상세 정보를 데이터베이스에서 가져옵니다.
+        // 그리고 이 정보를 모델에 추가하여 템플릿에서 사용할 수 있게 합니다.
+        // auctionKey="2021-11663";
+        AuctionMaster auctionMaster = auctionMasterRepository.findByAuctionKey(auctionKey);
+        model.addAttribute("auctionKey",auctionKey);
+        if (auctionMaster != null) {
+            model.addAttribute("auctionMaster", auctionMaster);
+        }
+        
+        return "apartment_detail"; // 해당 템플릿으로 이동
+    }
+
+    
 }

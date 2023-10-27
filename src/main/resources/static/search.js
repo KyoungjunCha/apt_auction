@@ -491,6 +491,19 @@ var itemsPerPage = 15; // 한 페이지에 표시할 아이템 개수
 var listEl = document.getElementById('placesList');
 var totalPages = Math.ceil(auctionMasters.length / itemsPerPage); // 전체 페이지 수 계산
 
+// URL에서 쿼리 문자열을 가져옵니다.
+var queryString = window.location.search;
+var urlParams = new URLSearchParams(queryString);
+
+// "auctionKey" 매개변수의 값을 가져옵니다.
+var auctionKey = urlParams.get('auctionKey');
+
+// auctionKey를 사용하여 페이지 내에서 필요한 작업을 수행합니다.
+console.log("auctionKey: " + auctionKey);
+
+
+
+
 // 페이지 번호를 관리할 변수
 var currentPage = 1;
 
@@ -638,9 +651,10 @@ function updateList(page) {
             };
             listEl.appendChild(el);
             el.addEventListener('click', function (event) {
-                var page = 'apartment_detail.html'; // 이동할 페이지 URL
+                var page = '/auction/apartment_detail'; // 이동할 페이지 URL
                 var auctionKey = event.target.getAttribute('data-id'); // 클릭한 항목의 데이터
-                var queryString = '?auctionKey=' + auctionKey; // 쿼리 문자열 생성
+                var queryString = '?auctionKey=' + auctionKey;// 쿼리 문자열 생성
+                console.log(auctionKey);
                 window.location.href = page + queryString; // 새 페이지로 이동
             });
         }

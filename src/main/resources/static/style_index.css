@@ -8,12 +8,7 @@
     color: black;
 } */
 
-/* 설명 부분 */
-.main-info {
-    text-align: left;
-    font-size: 45px;
-    padding-bottom: 20px;
-}
+
 /* .container{
     background-image:url('/src/main/resources/static/bkimg.jpg') !important;
     background-color: white;
@@ -96,13 +91,6 @@
     text-align: left;
 }
 
-.index1 {
-    background: rgba(155, 155, 155, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(16, 17, 22, 0.37);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border-radius: 10px;
-}
 
 a {
     text-align: center;
@@ -110,60 +98,15 @@ a {
     color: inherit !important;
 }
 
-#input-info {
-    height: 100%;
-    margin: 0 auto;
-    text-align: center;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
+
 table{
     width: 100%;
 }
 
-/* #locations-si{
-    width: 100px;
-    height: 500px;
-}
-#locations-do{
-    width: 100px;
-    height: 500px;
-} */
 
-select {
-    border-radius: 5px;
-    width: 40%;
-    height: 30px;
-}
-#price{
-    width: 70%;
-    height: 30px;
-    border-radius: 5px;
-    text-align: right   ;
-}
 
-.index1-form{
-    width: 85%;
-    padding: 3%;
-    background: rgba(119, 118, 118, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(15, 15, 19, 0.37);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 10px;
-}
 
-.styled-table1 th{
-    text-align: left;
-    font-size: 20px;
-}
-.styled-table1 td{
-    height: 100%;
-    text-align: left;
-}
-.styled-table1 > td > select {
-    border: none;
-}
+
 
 /* apartment_detail */
 .styled-table2 {
@@ -181,19 +124,6 @@ select {
     text-align: center;
 }
 
-#index1-submit{
-    display: flex;
-    padding-top: 2%;
-    font-size: 15px;
-}
-
-#index1-submit > button{
-    margin: 3px;
-    border: none;
-    width: 50%;
-    height: 50px;
-    border-radius: 5px;
-}
 #apartmentSize{
     border-radius: 5px;
     text-align: right;
@@ -201,19 +131,66 @@ select {
 
 }
 
-#popupbtn {
-    font-size: 20px;
-    border: none;
 
+
+
+
+/* index1 */
+#index1-ul{
+    font-size: 25px;
+    list-style-type: none;
+    padding: 5px;
+    width: 100%;
+    height: 50%;
+}
+
+select {
+    border-radius: 5px;
+    width: 30%;
+    height: 50px;
+}
+
+.index1 {
+    width: 55%;
+    height: 60%;
+    padding: 5px;
+    background: rgba(155, 155, 155, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(16, 17, 22, 0.37);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: 10px;
+}
+
+#price{
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+}
+
+#index1-li2{
+    width: 100%;
+}
+
+p{
+    font-size: 30px;
+    margin-left: 7%;
+    text-align: left;
+    padding-top: 15px;
+}
+
+#index1-submit{
+    width: 50%;
+    height: 50px;
 }
 
 #index1-submit > button{
-    margin-left: 25%;
-    border: none;
-
-}
-#index1-submit-btn{
+    width: 100%;
+    height: 100%;
     font-size: 25px;
+    border-radius: 5px;
     border: none;
+}
 
+#popupbtn {
+    border: none;
 }

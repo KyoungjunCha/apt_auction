@@ -14,11 +14,11 @@
 </div>
 <script layout:fragment="script2" th:inline="javascript">
     const app = document.getElementById('app')
-    const context = '각박한 세상속 이 한몸 누일 수 있는 내 집 마련의 꿈.'
+    const context = '각박한 세상속                      이 한몸 누일 수 있는              내 집 마련의 꿈.'
     const textArray = context.split('');
     const tagName = 'span'
     let interval;
-    let timer = 150;
+    let timer = 100;
     let index = 0;
 
     const createNode = (tagname) => {
