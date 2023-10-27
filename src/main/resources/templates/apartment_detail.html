@@ -92,6 +92,7 @@
               </td>
               <td colspan=2>
                 <button type="button" class="btn btn-outline-primary" id="popupbtn">예상 비용 산출</button>
+                <!-- <button type="button" th:onclick="|location.href='@{/auction/popup(apartmentSize=${auctionMaster.apartmentSize}, price=${auctionMaster.totalAppraisalPrice})}'|">예상 비용 산출</button> -->
               </td>
             </tr>
           </tbody>
@@ -103,10 +104,14 @@
   // 팝업창
   // 버튼 엘리먼트 가져오기
   // var popupbtn = document.getElementById("popupbtn");
+    var apartmentSize = /*[[${auctionMaster.apartmentSize}]]*/;
+    var price = /*[[${auctionMaster.predictionPrice}]]*/;
 
-  function openPopup() {
+    function openPopup() {
       // 팝업 창의 URL
-      var popupUrl = "/auction/popup?";
+      var popupUrl = "/auction/popup?apartmentSize=" + apartmentSize;
+      popupUrl += '&price=' + price;
+      // console.log(popupUrl);
       var name = "popup";
       // 팝업 창의 속성 (크기, 스크롤바 등)
       var popupOptions = "width=900px,height=800px,scrollbars=yes";

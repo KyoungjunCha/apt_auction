@@ -106,11 +106,18 @@ public class AuctionMasterController {
     // return "apartment_detail";
     // }
 
-    @RequestMapping("/popup")
+    @GetMapping("/popup")
     public String showPopup(@RequestParam(value = "price", required = false) Long price,
             @RequestParam(value = "apartmentSize", required = false) Integer apartmentSize,
             Model model) {
-
+        if (price == null){
+            price = (long)0;
+        }
+        if (apartmentSize == null){
+            apartmentSize = 0;
+        }
+        // System.out.println("test0:" + price);
+        // System.out.println("test1:" + apartmentSize);
         model.addAttribute("price", price);
         model.addAttribute("apartmentSize", apartmentSize);
 
