@@ -651,8 +651,10 @@ function updateList(page) {
             };
             listEl.appendChild(el);
             el.addEventListener('click', function (event) {
+                var auctionKey = event.currentTarget.getAttribute('data-id');
+                console.log(auctionKey);
                 var page = '/auction/apartment_detail'; // 이동할 페이지 URL
-                var auctionKey = event.target.getAttribute('data-id'); // 클릭한 항목의 데이터
+                // var auctionKey = event.target.getAttribute('data-id'); // 클릭한 항목의 데이터
                 var queryString = '?auctionKey=' + auctionKey;// 쿼리 문자열 생성
                 console.log(auctionKey);
                 window.location.href = page + queryString; // 새 페이지로 이동
