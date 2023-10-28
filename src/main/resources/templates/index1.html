@@ -51,14 +51,16 @@
     // 버튼 엘리먼트 가져오기
     // var popupbtn = document.getElementById("popupbtn");
 
-    // var price = /*${price}*/;
-    // var apartmentSize = /*${apartmentSize}*/;
     function openPopup() {
         // 팝업 창의 URL
+        var price = document.getElementById("price").value;
+        var apartmentSize = document.getElementById("apartmentSize").value;
         var popupUrl = "/auction/popup";
+        var popupUrl = "/auction/popup?apartmentSize=" + apartmentSize;
+        popupUrl += '&price=' + price;
         var name = "popup";
         // 팝업 창의 속성 (크기, 스크롤바 등)
-        var popupOptions = "width=900px,height=800px,scrollbars=yes";
+        var popupOptions = "top=100, left=200, width=1050px,height=800px,scrollbars=yes, location=no";
 
         // 팝업 창 열기
         window.open(popupUrl, name, popupOptions);
