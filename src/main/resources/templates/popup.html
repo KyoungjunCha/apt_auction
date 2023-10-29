@@ -7,26 +7,25 @@
   <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Gugi&family=Nanum+Pen+Script&display=swap" rel="stylesheet"> -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
   <style>
-    
-
-    @import url('https://fonts.googleapis.com/css2?family=Black+And+White+Picture&display=swap');
-
-
+    /* @import url('https://fonts.googleapis.com/css2?family=Black+And+White+Picture&display=swap'); */
     body {
         font-family:Black And White Picture;
-        font-size: 25px;
+        font-size: 20px;
     }
 
     .container {
-        background-image: url("/build/resources/main/static/bill.png");
+        background-image: url("/bill.png");
+        background-size: cover;
         margin: 40px;
         padding: 40px;
     }
 
     .division-line {
         border: 1px solid #444444;
-        margin: 30px 0px;
+        margin: 20px 0px;
     }
 
     /* .styled-table {
@@ -35,12 +34,15 @@
         border: 1px solid #000;
         padding: 10px;
     } */
+    #first td {
+        text-align: center;
+    }
+
     .popup-table1 td {
         text-align: center;
     }
 
     .popup-table2 {
-        
         border-collapse: separate;
         border-spacing: 10px 10px;
     }
@@ -48,87 +50,203 @@
     .popup-table th {
         margin: 5px 0;
     }
-
-    
 </style>
 </head>
 <body>
-    <h3>DONE Inc</h3>
-        <div class="container">
-            <table class="popup-table">
-                <colgroup>
-                    <col width="300">
-                    <col width="700">
-                    <col width="300">
-                </colgroup>    
-                <tr id="first">
-                    <td>Description</td>
-                    <td>Info.</td>
-                    <td>Amount</td>   
-                </tr>
-            </table>    
-                <hr class="division-line">
-            <table class="popup-table2"> 
-                <colgroup>
-                    <col width="400">
-                    <col width="600">
-                    <col width="300">
-                </colgroup>       
-                <tr>    <!-- 1행-->
-                    <td>희망 낙찰가</td>
-                    <td style="text-align: right;" th:text="'아파트 평수 : ' + ${apartmentSize} + ' 평'"></td>
-                    <td style="text-align: right;" th:text="${#numbers.formatInteger(price, 3, 'COMMA') + ' 원'}"></td>
-                </tr>
-                <tr>
-                    <td>TAX(3.3%)</td>
-                    <td>취득세+농어촌특별세+지방교육세</td> -
-                    <td style="text-align: right;" th:text="${#numbers.formatInteger(price*0.033, 3, 'COMMA') + ' 원'}">1,000,000 원</td>
-                </tr>
-                <tr>
-                    <td>명도비용</td>
-                    <td>강제집행비용<a href="https://xn--989a00af8jnslv3dba.com/%EB%AA%85%EB%8F%84%EB%B9%84%EC%9A%A9">[?]</a></td> -
-                    <td style="text-align: right;"  th:text="${#numbers.formatInteger(apartmentSize*50000, 3, 'COMMA') + ' 원'}">2,400,000 원</td> 
-                </tr>
-                <tr>
-                    <td>기타 비용</td>
-                    <td>미납공공료 및 관리비,법무사 비용,제수수료</td>
-                    <td style="text-align: right;">  - <input type="number" name="etc_expense" value="etc_expense"
-                            placeholder="직접 입력하세요."></td>
-                </tr>
-                <tr>
-                    <td>
-                        채권 매입 금액
-                    </td>
-                    <td>국민주택채권매입표 참조<a href="https://xn--989a00af8jnslv3dba.com/%EA%B5%AD%EB%AF%BC%EC%A3%BC%ED%83%9D%EC%B1%84%EA%B6%8C">[?]</a></td>
-                    <td style="text-align: right;"> - 
-                        <input type="number" name="etc_expense" 
-                            th:value="${price*0.021}">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        경락잔금대출<a href="#">[?]</a> <!--대출은 보통 70~80% 나옴 1금융권 기준-->
-                    </td>
-                    <td>희망 낙찰가에 포함 시 0원 입력</td>
-                    <td style="text-align: right;">  + <input type="number" name="etc_expense" value="etc_expense"
-                            placeholder="직접 입력하세요."></td>
-                </tr>
-            </table>
-            <!-- th:value="${#numbers.formatInteger(price*0.021, 3, 'COMMA') + ' 원'}" -->
+    <a class="navbar-brand" href="/">
+        <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M13 2h2v2h1v19h1v-15l6 3v12h1v1h-24v-1h1v-11h7v11h1v-19h1v-2h2v-2h1v2zm8 21v-2h-2v2h2zm-15 0v-2h-3v2h3zm8 0v-2h-3v2h3zm-2-4v-13h-1v13h1zm9 0v-1h-2v1h2zm-18 0v-2h-1v2h1zm4 0v-2h-1v2h1zm-2 0v-2h-1v2h1zm9 0v-13h-1v13h1zm7-2v-1h-2v1h2zm-18-1v-2h-1v2h1zm2 0v-2h-1v2h1zm2 0v-2h-1v2h1zm14-1v-1h-2v1h2zm0-2.139v-1h-2v1h2z"/></svg>
+        DONE
+    </a>
+    <div class="container" >
+        <table class="popup-table" >
+            <colgroup>
+                <col width="200">
+                <col width="700">
+                <col width="300">
+            </colgroup>    
+            <tr id="first" class="fs-4 fw-bold">
+                <td>항 목</td>
+                <td>설 명</td>
+                <td>금 액</td>   
+            </tr>
+        </table>    
             <hr class="division-line">
-            <table class="styled-table3" style="text-align:center;"> 
-                <colgroup>
-                    <col width="300">
-                    <col width="700">
-                    <col width="300">
-                </colgroup>          
-                <tr id="final">
-                    <td>희망 낙찰 조정가</td>
-                    <td><strong>TOTAL</strong></td>
-                    <td>₩</td>
-                </tr>
-            </table> 
-            <hr class="division-line">
+        <table class="popup-table2"> 
+            <colgroup>
+                <col width="200">
+                <col width="700">
+                <col width="300">
+            </colgroup>       
+            <tr>    <!-- 1행-->
+                <td class="fw-bold mb-3">희망 낙찰가</td>
+                <td style="text-align: left;" th:text="'아파트 평수 : ' + ${apartmentSize} + ' 평'"></td>
+                <td style="text-align: right;" th:text="${#numbers.formatInteger(price, 3, 'COMMA') + ' 원'}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">TAX(3.3%)</td>
+                <td>취득세+농어촌특별세+지방교육세</td>
+                <td style="text-align: right;" th:text="'- ' + ${#numbers.formatInteger(price*0.033, 3, 'COMMA') + ' 원'}">1,000,000 원</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">명도비용</td>
+                <td>강제집행비용<a href="https://xn--989a00af8jnslv3dba.com/%EB%AA%85%EB%8F%84%EB%B9%84%EC%9A%A9" target="_blank">[?]</a></td>
+                <td style="text-align: right;">
+                    <div class="input-group mb-2">
+                        - &nbsp;
+                        <input type="text" id='move_p' class="form-control number-ctl text-end fs-5" onchange = "calc_tot()" placeholder="직접 입력하세요.">
+                        <span class="input-group-text">원</span>
+                    </div>
+                </td> 
+            </tr>
+            <tr>
+                <td class="fw-bold">기타 비용</td>
+                <td>미납공공료 및 관리비,법무사 비용,제수수료</td>
+                <td style="text-align: right;">
+                    <div class="input-group mb-2">
+                        - &nbsp;
+                        <input type="text" id='etc1' class="form-control number-ctl text-end fs-5" onchange = "calc_tot()" placeholder="직접 입력하세요.">
+                        <span class="input-group-text">원</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="fw-bold">
+                    채권 매입 금액
+                </td>
+                <td>국민주택채권매입표 참조<a href="https://xn--989a00af8jnslv3dba.com/%EA%B5%AD%EB%AF%BC%EC%A3%BC%ED%83%9D%EC%B1%84%EA%B6%8C" target="_blank">[?]</a></td>
+                <td style="text-align: right;">
+                    <!-- <input type="number" name="etc_expense" 
+                        th:value="${price*0.021}"> -->
+                    <div class="input-group mb-2">
+                        - &nbsp;
+                        <input type="text" id='etc2' class="form-control number-ctl text-end fs-5" onchange = "calc_tot()">
+                        <span class="input-group-text">원</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="fw-bold">
+                    경락잔금대출</a> <!--대출은 보통 70~80% 나옴 1금융권 기준-->
+                </td>
+                <td>희망 낙찰가에 포함 시 0원 입력
+                        <button type="button" class="btn btn-link btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                           [?]
+                        </button>
+                </td>
+                <td style="text-align: right;">
+                    <div class="input-group mb-2">
+                        + &nbsp;
+                        <input type="text" id='zan' class="form-control number-ctl text-end fs-5" onchange = "calc_tot()">
+                        <span class="input-group-text">원</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <!-- th:value="${#numbers.formatInteger(price*0.021, 3, 'COMMA') + ' 원'}" -->
+        <hr class="division-line">
+        <table class="styled-table3" style="text-align:center;"> 
+            <colgroup>
+                <col width="400">
+                <col width="500">
+                <col width="300">
+            </colgroup>          
+            <tr id="final" class="fw-bold">
+                <td>희망 낙찰가 조정 가능 금액</td>
+                <td><strong></strong></td>
+                <td id="total_price" class="text-primary">₩</td>
+            </tr>
+        </table> 
+        <hr class="division-line">
+    </div>
+    <div class="d-grid gap-2 col-4 mx-auto">
+        <button class="btn btn-outline-secondary" type="button" onClick="self.close();">닫기</button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">경락자금 대출 가능 한도 금액</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="fs-4 fw-bold lh-sm">주택 등 부동산 경매 낙찰 시 1금융권, 2금융권에서 대출 가능한 한도 예상액입니다.</p> 
+                    <p class="fs-6 fw-italic">* 1금융권 :<br> &nbsp - 낙찰가의 80%, 감정가의 70%, 현재 시세의 70% 중 최소 금액</p>
+                    <p class="fs-6 fw-lighter">* 2금융권:<br> &nbsp - 낙찰가의 90%, 감정가의 80%, 현재 시세의 80% 중 최소 금액</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <script layout:fragment="script2" th:inline="javascript">
+        var price = /*[[${price}]]*/;
+        var apartmentSize = /*[[${apartmentSize}]]*/;
+        var tax = price * 0.033;
+        var move_p_num = apartmentSize * 190000;
+        var etc2_num = Math.round(price*0.018-(price*0.018)*0.1536164);
+        var zan_num = Math.round(price*0.7);
+
+        document.getElementById("move_p").value = move_p_num.toLocaleString('ko-KR');
+        document.getElementById("etc2").value = etc2_num.toLocaleString('ko-KR');
+        document.getElementById("zan").value = zan_num.toLocaleString('ko-KR');
+
+        calc_tot();
+
+        var nums = document.querySelectorAll('.number-ctl');
+        /*
+        console.log(nums.length);
+        for(let i = 0; i < nums.length; i++) {
+            console.log(nums[i].value);
+            nums[i].addEventListener("keyup", function(e) {
+    
+                let value = e.target.value;
+                console.log(value);
+                value = Number(value.replaceAll(',', ''));
+                if(isNaN(value)) {
+                    e.target.value = 0;
+                }else {
+                    const formatValue = value.toLocaleString('ko-KR');
+                    e.target.value = formatValue;
+                }
+            });
+        }
+        */ 
+
+        [].forEach.call(nums, function(num){ 
+            num.addEventListener("keyup", keyup, false); 
+        });
+        function keyup(e){ 
+            let value = e.target.value;
+            console.log(value);
+            value = Number(value.replaceAll(',', ''));
+            if(isNaN(value)) {
+                e.target.value = 0;
+            }else {
+                const formatValue = value.toLocaleString('ko-KR');
+                e.target.value = formatValue;
+            }
+        }
+        
+        function calc_tot() {
+            var val = document.getElementById("move_p").value;
+            var move_p = Number(val.replaceAll(',', ''));
+            val = document.getElementById("etc1").value;
+            var etc1 = Number(val.replaceAll(',', ''));
+            val = document.getElementById("etc2").value;
+            var etc2 = Number(val.replaceAll(',', ''));
+            val = document.getElementById("zan").value;
+            var zan = Number(val.replaceAll(',', ''));
+            val = price - tax - move_p - etc1 - etc2 + zan;
+            // console.log(val);
+
+            document.getElementById("total_price").value = val;
+            document.getElementById("total_price").innerText = val.toLocaleString('ko-KR') + ' 원';
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 </html>
