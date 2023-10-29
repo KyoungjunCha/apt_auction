@@ -51,20 +51,24 @@ public class AuctionMasterController {
     // return "apartment_form";
     // }
 
-    // @GetMapping("/list")
-    // // @ResponseBody
-    // public String listAllAuctionMasters(Model model) {
-    // List<AuctionMaster> allAuctionMasters = auctionMasterRepository.findAll();
-    // model.addAttribute("auctionMasters", allAuctionMasters);
 
-    // // 주소 정보 추출 및 타임리프에 추가하기
-    // List<String> addresses = allAuctionMasters.stream() // 스트림 형식으로 변환
-    // .map(AuctionMaster::getAddress) // AuctionMaster 에서 주소 추출
-    // .collect(Collectors.toList()); // 주소정보 List 변환
-    // model.addAttribute("addresses", addresses);
+    
+    @GetMapping("/list")
+    // @ResponseBody
+    public String listAllAuctionMasters(Model model) {
+    List<AuctionMaster> allAuctionMasters = auctionMasterRepository.findAll();
+    model.addAttribute("auctionMasters", allAuctionMasters);
 
-    // return "apartment_form";
-    // }
+
+
+    // 주소 정보 추출 및 타임리프에 추가하기
+    List<String> addresses = allAuctionMasters.stream() // 스트림 형식으로 변환
+    .map(AuctionMaster::getAddress) // AuctionMaster 에서 주소 추출
+    .collect(Collectors.toList()); // 주소정보 List 변환
+    model.addAttribute("addresses", addresses);
+
+    return "apartment_form";
+    }
 
     @PostMapping("/list/custom-filters")
     public String listAuctionMastersBasedOnFilters(

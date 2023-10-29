@@ -11,8 +11,12 @@
         기본틀은 style.css 가 기본임.
     -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> -->
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+
+
     <link rel="stylesheet" type="text/css" th:href="@{/style_index.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style_intro.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style_sign_in_up.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style_navbar.css}">
@@ -26,8 +30,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 
     <title>layout</title>
 </head>
@@ -42,7 +44,7 @@
 
     <!-- 기본 템플릿 안에 삽입될 내용 End -->
     <!-- Bootstrap JS -->
-    <script th:src="@{/bootstrap.min.js}"></script>
+    <!-- <script th:src="@{/bootstrap.min.js}"></script> -->
 
     <!-- 자바스크립트 Start -->
     <th:block layout:fragment="script"></th:block>

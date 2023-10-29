@@ -2,14 +2,16 @@
 <!-- content -->
 <div layout:fragment="content" class="container video-background"> <!--뒤에 video-background 빼면 header footer 안나옴-->
     <video autoplay muted loop class="video">
-        <source src="as2.mp4" type="video/mp4"> 
+        <source src="as2.mp4" type="video/mp4">
     </video>
 
     <div class="m-auto content-box main-index intro">
         <div class="main-info">
             <div id="app" class="m-auto"></div>
         </div>
-        <h2> <a th:href="@{/index3}" id="intro-link">경매, 어렵지 않습니다.</a></h2>
+        <div class="index-intro-div m-auto">
+            <h2> <a th:href="@{/index3}" id="intro-link">경매, 어렵지 않습니다.</a></h2>
+        </div>
     </div>
 </div>
 <script layout:fragment="script2" th:inline="javascript">

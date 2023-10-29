@@ -42,7 +42,8 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 250px;
+    /* width: 250px; */
+    width: 20%;
     margin: 10px 0 30px 10px;
     padding: 5px;
     overflow-y: auto;
@@ -265,7 +266,7 @@
     background-position: -10px -72px;
 }
 
-#category li .oil {
+#category li .subway {
     background-position: -10px -108px;
 }
 
@@ -370,4 +371,20 @@
 }
 #infoData li {
     margin-right: 10px; /* 각 항목 사이의 여백 설정 */
+}
+
+#map_info{
+    width: 350px;
+    height: 80%;
+    /* background-color: blue; */
+    border-radius: 5px;
+}
+
+.prediction-price{
+    font-size: 14px;
+    color: red;
+}
+.real-price {
+    font-size: 14px;
+    color: blue;
 }
