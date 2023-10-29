@@ -15,7 +15,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 마커를 담을 배열입니다
 var markers = [];
-// var addresses = /*[[${addresses}]]*/;
 
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();
@@ -44,6 +43,7 @@ var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 // displayPlaces 함수부분은 마커와 내용을 맵에 list에 기입하는 부분
 // getListItem 함수와 displayPagination 함수의 수정이 필요합니다.
 // 키워드로 장소를 검색합니다
+
 searchPlaces();
 
 
@@ -52,7 +52,7 @@ function searchPlaces() {
 
     var keyword = document.getElementById('keyword').value;
 
-    if (!keyword.replace(/^\s+|\s+$/g, '')) { //앞뒤 공백 제거인듯?
+    if (!keyword.replace(/^\s+|\s+$/g, '')) { //앞뒤 공백 제거
         alert('키워드를 입력해주세요!');
         return false;
     }
@@ -96,8 +96,7 @@ function displayPlaces(places) {
     var listEl = document.getElementById('placesList'),
         menuEl = document.getElementById('menu_wrap'),
         fragment = document.createDocumentFragment(),
-        bounds = new kakao.maps.LatLngBounds(),
-        listStr = '';
+        bounds = new kakao.maps.LatLngBounds();
 
     // 검색 결과 목록에 추가된 항목들을 제거합니다
     removeAllChildNods(listEl);
@@ -117,9 +116,7 @@ function displayPlaces(places) {
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
 
-        // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
-        // mouseout 했을 때는 인포윈도우를 닫습니다
         (function (marker, title) {
             kakao.maps.event.addListener(marker, 'mouseover', function () {
                 displayInfowindow(marker, title);

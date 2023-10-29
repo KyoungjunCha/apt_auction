@@ -298,6 +298,19 @@ select {
     overflow: auto; /* 스크롤바를 표시하기 위한 속성 */
     max-height: 600px; /* 최대 높이 지정 */
 }
-/* .styled-table2 {
+
+
+.apartment-detail{
+    background-image: url('bkimg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* .apartmentForm {
     width: 100%;
+    overflow: auto; /* 스크롤바를 표시하기 위한 속성 */
+    max-height: 600px; /* 최대 높이 지정 */
 } */
+
+
