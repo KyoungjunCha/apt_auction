@@ -52,10 +52,10 @@ function searchPlaces() {
 
     var keyword = document.getElementById('keyword').value;
 
-    if (!keyword.replace(/^\s+|\s+$/g, '')) { //앞뒤 공백 제거
-        alert('키워드를 입력해주세요!');
-        return false;
-    }
+    // if (!keyword.replace(/^\s+|\s+$/g, '')) { //앞뒤 공백 제거
+    //     alert('키워드를 입력해주세요!');
+    //     return false;
+    // }
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch(keyword, placesSearchCB);
@@ -504,15 +504,15 @@ console.log("auctionKey: " + auctionKey);
 // 페이지 번호를 관리할 변수
 var currentPage = 1;
 
-function createInfoWindow(content, position) {
-    var infoWindow = new kakao.maps.InfoWindow({
-        content: content,
-        position: position,
-        zIndex: 1 // 원하는 z-index 값으로 설정합니다.
-    });
+// function createInfoWindow(content, position) {
+//     var infoWindow = new kakao.maps.InfoWindow({
+//         content: content,
+//         position: position,
+//         zIndex: 1 // 원하는 z-index 값으로 설정합니다.
+//     });
 
-    return infoWindow;
-}
+//     return infoWindow;
+// }
 
 // 페이지가 바뀔 때 호출되는 함수
 function onPageChange(page) {
@@ -693,10 +693,10 @@ function testdisplayPagination() {
 function updateMarkers() {
     testremoveMarker(); // 이전 마커 제거
     // 현재 페이지에 해당하는 아이템들로 마커를 생성하고 지도에 추가
-    var startIndex = (currentPage - 1) * itemsPerPage;
-    var endIndex = Math.min(startIndex + itemsPerPage, auctionMasters.length);
+    // var startIndex = (currentPage - 1) * itemsPerPage;
+    // var endIndex = Math.min(startIndex + itemsPerPage, auctionMasters.length);
 
-    for (var i = startIndex; i < endIndex; i++) {
+    for (var i=0; i < auctionMasters.length; i++) {
         geocoder.addressSearch(auctionMasters[i].address, createMarkerCallback(i));
     }
 }

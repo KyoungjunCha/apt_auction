@@ -307,10 +307,30 @@ select {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-/* .apartmentForm {
+.apartmentForm {
     width: 100%;
     overflow: auto; /* 스크롤바를 표시하기 위한 속성 */
     max-height: 600px; /* 최대 높이 지정 */
-} */
+}
+
+.comment-form{
+    background-image: url('bkimg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.5);
+}
 
 
+
+.commentform{
+    width: 30%;
+    height: 50%;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+.subbtn{
+    width: 100%;
+    background-color: #FFFFFF;
+    color: black;
+    border: none;
+}

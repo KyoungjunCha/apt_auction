@@ -10,6 +10,7 @@ import com.lhs.sbb.comment.Comment;
 import com.lhs.sbb.question.Question;
 import com.lhs.sbb.user.SiteUser;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,6 +47,6 @@ public class Answer {
     @ManyToMany
     Set<SiteUser> voter;
     
-    @OneToMany(mappedBy = "answer")
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
     private List<Comment> commentList;    
 }

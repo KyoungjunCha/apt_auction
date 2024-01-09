@@ -42,6 +42,9 @@ public class Question {
     //cascade remove 의 의미는 질문 삭제시에 달린 답변들도 전부 삭제되기 위함임.
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
     
     @ManyToOne
     private SiteUser author;
@@ -50,8 +53,6 @@ public class Question {
     
     @ManyToMany
     Set<SiteUser> voter;
-    
-    @OneToMany(mappedBy = "question")
-    private List<Comment> commentList;
+
    
 }
